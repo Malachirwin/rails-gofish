@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "session/new.html.slim", type: :view do
+RSpec.describe "sessions/new.html.slim", type: :view do
   describe 'new' do
     it 'has text on page' do
     user = User.new

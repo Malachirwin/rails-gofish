@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe SessionHelper, type: :helper do
+RSpec.describe SessionsHelper, type: :helper do
   describe "log_in" do
     it "sets the session[:user_id]" do
       user = User.create(name: 'Malachi')

@@ -1,0 +1,14 @@
+- if @game.pending
+  = "there are #{@game.users.length} of #{@game.player_num} to start the game"
+  - @game.users.each do |user|
+    h1 = user.name
+-else
+  h1 Tha Game Has Started
+  = react_component('GameView', { name: @game.go_fish_game[:players][@game.users.index(@user)][0], cards: @game.go_fish_game[:players][@game.users.index(@user)][1]})
+  / = react_component('HelloWorld', { greeting: "Hello from react-rails." })
+  / / - @game.users.each do |user|
+  / /   h1 = user.name
+  / h1 = @game.go_fish_game[:level]
+  / h1 = @game.go_fish_game[:players][@game.users.index(@user)][0]
+  / h1 = @game.go_fish_game[:players][@game.users.index(@user)][1].join(', ')
+  / / h1 = @game.users.index(@user)

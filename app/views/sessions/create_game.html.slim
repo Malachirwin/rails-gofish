@@ -1,0 +1,5 @@
+h1 What level do you want
+= form_for @game, url: game_create_url, method: "post" do |f|
+  = f.select :level, ['easy', 'hard']
+  = f.number_field :player_num, min: 2 ,max: 6, value: 4
+  = f.submit

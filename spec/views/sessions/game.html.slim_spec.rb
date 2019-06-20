@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "session/game.html.slim", type: :view do
+RSpec.describe "sessions/game.html.slim", type: :view do
   describe 'game' do
     it 'has text on page' do
     user = User.create(name: 'Malachi')

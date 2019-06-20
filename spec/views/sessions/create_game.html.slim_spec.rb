@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "session/create_game.html.slim", type: :view do
+RSpec.describe "sessions/create_game.html.slim", type: :view do
   # pending "add some examples to (or delete) #{__FILE__}"
   describe 'create_game' do
     it 'has text on page' do

@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_18_200239) do
+ActiveRecord::Schema.define(version: 2019_06_19_213456) do
+
+  create_table "game_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.datetime "start_at"
+    t.datetime "finish_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "level"
+    t.integer "player_num"
+    t.json "go_fish_game", default: {}, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"

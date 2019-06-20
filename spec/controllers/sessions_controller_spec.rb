@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe SessionController, type: :controller do
-  include SessionHelper
+RSpec.describe SessionsController, type: :controller do
+  include SessionsHelper
   describe "GET #new" do
     it "returns http success" do
       get :new

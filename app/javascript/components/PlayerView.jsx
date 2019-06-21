@@ -1,11 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 class PlayerView extends React.Component {
-  render () {
+  render() {
     return (
       <div className="player-div">
         <h1>{this.props.name}</h1>
-        <h1>{this.props.cards.join(', ')}</h1>
       </div>
     );
   }
@@ -13,6 +12,6 @@ class PlayerView extends React.Component {
 
 PlayerView.propTypes = {
   name: PropTypes.string,
-  cards: PropTypes.array
 };
 export default PlayerView
+//<h1>{this.props.player.cards.join(', ')}</h1>

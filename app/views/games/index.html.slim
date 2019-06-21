@@ -1,9 +1,9 @@
 h1 Welcome to Go Fish
 h3 = @user.name
 
-= link_to 'Create Game', sessions_create_game_url
+= link_to 'Create Game', new_game_path
 
 h2 Pending Games
 -if @pending_games != []
   - @pending_games.each do |game|
-    h3 = link_to game.level, game_show_url(id: game.id)
+    h3 = link_to game.level, game

@@ -26,4 +26,12 @@ class Card
   def to_img_path
     "#{suit.downcase}#{rank.downcase}"
   end
+
+  def as_json options = {}
+    {'rank' => rank, 'suit' => suit, 'value' => value}
+  end
+
+  def self.from_json(hash)
+    Card.new(hash['rank'], hash['suit'])
+  end
 end

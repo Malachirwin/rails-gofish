@@ -1,0 +1,8 @@
+- if @game.pending
+  = "there are #{@game.users.length} of #{@game.player_num} to start the game"
+  - @game.users.each do |user|
+    h1 = user.name
+-else
+  h1 The Game Has Started
+  - binding.pry
+  = react_component('GameView', { game_id: @game.id, name: @game.go_fish_game.players[@game.users.index(@user)].name})

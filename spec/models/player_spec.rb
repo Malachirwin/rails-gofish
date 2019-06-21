@@ -1,3 +1,4 @@
+require 'rails_helper'
 describe Player do
   it 'has a name' do
     player = Player.new('Malachi')
@@ -40,5 +41,19 @@ describe Player do
     player = Player.new('Malachi', [Card.new("A", "S"), Card.new("A", "H"), Card.new("A", "D"), Card.new("A", "C")])
     player.pair_cards
     expect(player.points).to eq 1
+  end
+
+  it "returns json hash" do
+    player = Player.new('Malachi', [Card.new("A", "S"), Card.new("A", "H"), Card.new("A", "D"), Card.new("A", "C")])
+    expect(player.as_json).to include_json name: 'Malachi'
+    expect(player.as_json).to include_json matches: []
+    expect(player.as_json).to include_json cards: [{rank: "A", suit: "S", value: "Ace of Spades"}]
+  end
+
+  it "returns json hash" do
+    player = Player.new('Malachi', [Card.new("A", "S"), Card.new("A", "H"), Card.new("A", "D"), Card.new("A", "C")]).as_json
+    player = Player.from_json(player)
+    expect(player.class).to eq Player
+    expect(player.player_hand).to_not eq []
   end
 end

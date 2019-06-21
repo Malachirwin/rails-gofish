@@ -1,8 +1,18 @@
 class GoFishGame
-  def initialize player_names:, level:
+  def initialize player_names: '', level: 'easy', players: [], deck: ''
     @level = level
+    if deck == ''
+      setup(player_names)
+    else
+      @players = players
+      @deck = deck
+    end
+  end
+
+  def setup(player_names)
     @deck = CardDeck.new
-    player_hands = @deck.deal
+    @deck.shuffle
+    player_hands = @deck.deal(player_names.length)
     @players = player_names.map.with_index do |name, index|
       Player.new(name, player_hands[index])
     end
@@ -17,10 +27,47 @@ class GoFishGame
   end
 
   def state
-    {players: players_state, deck: deck.state, level: @level}
+    {players: players_state, deck: deck.as_json, level: @level}
   end
 
   def players_state
-    players.map { |pl| [pl.name, pl.player_hand.map {|c| c.value}] }
+    players.map { |pl| pl.as_json }
+  end
+
+  def self.load(hash)
+    return nil if hash.blank?
+    self.from_json(hash)
+  end
+
+  def self.from_json(hash)
+    game = hash
+    players = game['players'].map {|pl| Player.from_json(pl)}
+    level = game['level']
+    deck = CardDeck.from_json(game['deck'])
+    GoFishGame.new(players: players, deck: deck, level: level)
+  end
+
+  def as_json
+    {'players' => players.map { |pl| pl.as_json }, 'deck' => deck.as_json, 'level' => @level}
+  end
+
+  def players_find_by(name: '')
+    if name != ''
+      return players.select {|pl| pl.name == name}.first
+    end
+    'No player found'
+  end
+
+  def opponents(player)
+    players.select { |pl| pl.name != player.name }
+  end
+
+  def players_json(name)
+    player = players_find_by(name: name)
+    {player: player.as_json, opponents: opponents(player).map {|pl| pl.as_opponent_json}, cards_in_deck: deck.cards_left}
+  end
+
+  def self.dump(obj)
+    obj.as_json
   end
 end

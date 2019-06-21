@@ -28,4 +28,20 @@ describe 'Card' do
     expect(card.rank_value).to eq "Jack"
     expect(card2.rank_value).to eq "4"
   end
+
+  it "returns json hash" do
+    card = Card.new("J", 'H')
+    card2 = Card.new('4', 'H')
+    hash1 = {"rank" => "J", "suit" => "H", 'value' => "Jack of Hearts"}
+    hash2 = {"rank" => "4", "suit" => "H", "value" => "4 of Hearts"}
+    expect(card.as_json).to eq hash1
+    expect(card2.as_json).to eq hash2
+  end
+
+  it "returns a Card from a value" do
+    card = Card.from_json(Card.new('J', 'H').as_json)
+    expect(card.class).to eq Card
+    expect(card.rank).to eq "J"
+    expect(card.suit).to eq "H"
+  end
 end

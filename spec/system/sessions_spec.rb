@@ -22,7 +22,6 @@ RSpec.describe "Sessions", type: :system do
       click_link 'Create Game'
       expect(page).to have_text("What level do you want")
       click_button 'Create'
-      binding.pry
       # expect(page.has_route?).to eq(true)
     end
   end

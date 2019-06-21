@@ -8,7 +8,7 @@ RSpec.describe "Sessions", type: :system do
 
   describe '/create_game' do
     include SessionsHelper
-    it 'once logged in it allows you to create a game', :js do
+    it 'once logged in it allows you to create a game', js: true do
       user1 = User.create(name: 'Malachi')
       user2 = User.create(name: 'Jimmy')
       user3 = User.create(name: 'Fred')
@@ -21,7 +21,7 @@ RSpec.describe "Sessions", type: :system do
       game_user3 = GameUser.create(game_id: game.id, user_id: user3.id)
       game_user4 = GameUser.create(game_id: game.id, user_id: user4.id)
       visit "/games/#{game.id}"
-      # expect(page).to have_text("What level do you want")
+      expect(page).to have_text("The Game Has Started")
       # click_button 'Create'
     end
   end

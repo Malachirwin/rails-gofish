@@ -6,4 +6,6 @@ h3 = @user.name
 h2 Pending Games
 -if @pending_games != []
   - @pending_games.each do |game|
-    h3 = link_to game.level, game
+    h3 = link_to "#{game.level} waiting for #{game.player_num - game.users.length} of #{game.player_num} players", game
+/ - @user.games.each do |game|
+/   h3 = link_to "#{game.level} waiting for #{game.player_num - game.users.length} of #{game.player_num} players", game

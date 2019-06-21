@@ -34,14 +34,14 @@ describe "CardDeck" do
 
   it 'refills cards' do
     deck = CardDeck.new
-    player = Player.new('Malachi')
+    player = Player.new(name: 'Malachi')
     deck.refill player
     expect(player.cards_left).to eq 5
   end
 
   it 'refills cards unless there is no cards in deck' do
     deck = CardDeck.new
-    player = Player.new('Malachi')
+    player = Player.new(name: 'Malachi')
     (deck.cards_left - 2).times { |i| deck.take_card }
     deck.refill player
     expect(player.cards_left).to eq 2

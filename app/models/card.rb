@@ -2,7 +2,7 @@ RANKS = { "A" => "Ace", "2" => "2", "3" => "3", "4" => "4", "5" => "5", "6" => "
 SUITS = { "D" => "Diamonds", "H" => "Hearts", "C" => "Clubs", "S" => "Spades" }
 
 class Card
-  def initialize rank, suit
+  def initialize rank:, suit:
     @rank = rank
     @suit = suit
   end
@@ -32,6 +32,6 @@ class Card
   end
 
   def self.from_json(hash)
-    Card.new(hash['rank'], hash['suit'])
+    Card.new(rank: hash['rank'], suit: hash['suit'])
   end
 end

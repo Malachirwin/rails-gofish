@@ -7,23 +7,37 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "fetch-mock": "^7.3.3",
     "jest-enzyme": "^7.0.2",
+    "jest-fetch-mock": "^2.1.2",
     "ndb": "^1.0.46",
+    "node-fetch": "^2.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react_ujs": "^2.5.0"
+    "react_ujs": "^2.5.0",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
-    "test": "jest",
-    "roots": [
-      "spec/javascript"
-    ]
+    "test": "jest --watch"
   },
   "devDependencies": {
     "babel-jest": "^24.8.0",
     "babel-preset-es2016": "^6.24.1",
     "jest": "^24.8.0",
     "webpack-dev-server": "^3.7.2"
+  },
+  "jest": {
+    "roots": [
+      "spec/javascript"
+    ],
+    "automock": false,
+    "setupFiles": [
+      "./spec/javascript/setupJest.js"
+    ],
+    "moduleDirectories": [
+      "app/javascript",
+      "node_modules"
+    ]
   }
 }

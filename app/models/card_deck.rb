@@ -1,7 +1,7 @@
 CARD_RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 CARD_SUITS = ["D", "H", "C", "S"]
 class CardDeck
-  def initialize(cards=[])
+  def initialize(cards: [])
     @cards = cards
     if @cards == []
       create_deck
@@ -11,7 +11,7 @@ class CardDeck
   def create_deck
     CARD_SUITS.each do |suit|
       CARD_RANKS.each do |rank|
-        @cards.push(Card.new(rank, suit))
+        @cards.push(Card.new(rank: rank, suit: suit))
       end
     end
   end
@@ -73,6 +73,6 @@ class CardDeck
     cards = obj['cards'].map do |c|
       Card.from_json(c)
     end
-    CardDeck.new(cards)
+    CardDeck.new(cards: cards)
   end
 end

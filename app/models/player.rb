@@ -1,5 +1,5 @@
 class Player
-  def initialize name, cards=[], matches=[]
+  def initialize name:, cards: [], matches: []
     @name = name
     @cards = cards
     @matches = matches
@@ -65,6 +65,6 @@ class Player
     matches = obj['matches'].map do |c|
       Card.from_json(c)
     end
-    Player.new(obj['name'], cards, matches)
+    Player.new(name: obj['name'], cards: cards, matches: matches)
   end
 end

@@ -2,6 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import CardView from './CardView'
 export default class OpponentView extends React.Component {
+  static propTypes {
+    opponent: PropTypes.object.isRequired
+  }
+
   renderCards() {
     return [...Array(this.props.opponent.numberOfCards()).keys()].map(i => <CardView classes="card-back" key={i} /> )
   }

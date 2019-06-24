@@ -1,7 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import CardView from './CardView'
-class PlayerView extends React.Component {
+export default class PlayerView extends React.Component {
+  static propTypes {
+    player: PropTypes.object.isRequired
+  }
+
   constructor(props) {
     super(props)
     this.state
@@ -20,9 +24,3 @@ class PlayerView extends React.Component {
     );
   }
 }
-
-PlayerView.propTypes = {
-  name: PropTypes.string,
-};
-export default PlayerView
-//<h1>{this.props.player.cards.join(', ')}</h1>

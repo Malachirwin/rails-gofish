@@ -57,8 +57,3 @@ export default class GameView extends React.Component {
     }
   }
 }
-
-// GameView.propTypes = {
-//   greeting: PropTypes.string
-// };
-// export default GameView

@@ -7,12 +7,15 @@ class PlayerView extends React.Component {
     this.state
   }
 
+  renderCards() {
+    return this.props.player.cards().map((c, i) => <CardView key={i} cardSrc={c.src()}/>)
+  }
+
   render() {
     return (
       <div className="player-div">
         <h1>{this.props.player.name()}</h1>
-        <h1>{this.props.player.cards().map(c => c.value()).join(', ')}</h1>
-        <CardView />
+        <div className="player-hand">{this.renderCards()}</div>
       </div>
     );
   }

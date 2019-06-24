@@ -24,6 +24,7 @@
   "devDependencies": {
     "babel-jest": "^24.8.0",
     "babel-preset-es2016": "^6.24.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
     "webpack-dev-server": "^3.7.2"
   },
@@ -38,6 +39,9 @@
     "moduleDirectories": [
       "app/javascript",
       "node_modules"
-    ]
+    ],
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
+    }
   }
 }

@@ -16,4 +16,8 @@ export default class Card {
   value() {
     return this._value
   }
+
+  src() {
+    return `${this.suit().toLowerCase()}${this.rank().toLowerCase()}`
+  }
 }

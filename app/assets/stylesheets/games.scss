@@ -1,3 +1,16 @@
 // Place all the styles related to the Games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.card-in-hand {
+  margin-left: -50px;
+  width: 71px;
+}
+.player-hand {
+  margin-left: 50px;
+  text-align: center;
+  display: inline;
+}
+.card-back {
+  margin-left: -57px;
+  width: 71px;
+}

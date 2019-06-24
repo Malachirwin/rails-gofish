@@ -3,6 +3,7 @@ import Player from './Player'
 import Game from './Game'
 import Opponent from './Opponent'
 import PlayerView from './PlayerView'
+import CardView from './CardView'
 import OpponentView from './OpponentView'
 import PropTypes from "prop-types"
 export default class GameView extends React.Component {
@@ -38,13 +39,18 @@ export default class GameView extends React.Component {
     })
   }
 
+  renderCenterDeck() {
+    return [...Array(this.state.game.cardsInDeck()).keys()].map(i => <CardView classes="card-in-deck" key={i} /> )
+  }
+
   render () {
     if(this.state.isLoaded === false) {
       return <div><h1>Loading</h1></div>
     } else {
       return (
-        <div>
-          {this.renderOpponents()}
+        <div className="center">
+          <div className="flex-wrapper">{this.renderOpponents()}</div>
+          <div className="deck">{this.renderCenterDeck()}</div>
           <PlayerView player={this.state.game.player()} />
         </div>
       )

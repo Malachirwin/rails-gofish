@@ -13,9 +13,9 @@ hash['cardBack'] = require(`images/backs_custom.jpg`)
 export default class CardView extends React.Component {
   render () {
     if (this.props.cardSrc !== undefined) {
-      return <img className="card-in-hand" src={hash[this.props.cardSrc]} alt="Card" />
+      return <img className={this.props.classes} src={hash[this.props.cardSrc]} alt="Card" />
     } else {
-      return <img className="card-back" src={hash['cardBack']} alt="Card Back" />
+      return <img className={this.props.classes} src={hash['cardBack']} alt="Card Back" />
     }
   }
 }

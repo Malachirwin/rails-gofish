@@ -3,18 +3,14 @@ import PropTypes from "prop-types"
 import CardView from './CardView'
 export default class OpponentView extends React.Component {
   renderCards() {
-    const arr = []
-    for(var i = 0;i<this.props.opponent.numberOfCards();i++){
-      arr.push(<CardView key={i} />)
-    }
-    return arr
+    return [...Array(this.props.opponent.numberOfCards()).keys()].map(i => <CardView classes="card-back" key={i} /> )
   }
 
   renderMatches() {
     return this.props.opponent.matches().map((match, index) => {
       return <div key={index} className="inbetween-match"> {
         match.map((c, i) => {
-          return <CardView key={i} cardSrc={c.src()}/>
+          return <CardView classes='match' key={i} cardSrc={c.src()}/>
         })
       }</div>
     })

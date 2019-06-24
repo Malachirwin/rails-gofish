@@ -66,7 +66,7 @@ class CardDeck
   end
 
   def as_json options = {}
-    {'cards' => cards.map {|c| c.as_json}}
+    {'cards' => cards.map(&:as_json)}
   end
 
   def self.from_json(obj)

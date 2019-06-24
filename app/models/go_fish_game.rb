@@ -27,14 +27,6 @@ class GoFishGame
     @deck
   end
 
-  def state
-    {players: players_state, deck: deck.as_json, level: @level}
-  end
-
-  def players_state
-    players.map { |pl| pl.as_json }
-  end
-
   def self.load(hash)
     return nil if hash.blank?
     self.from_json(hash)
@@ -49,12 +41,12 @@ class GoFishGame
   end
 
   def as_json
-    {'player_turn' => @player_turn, 'players' => players.map { |pl| pl.as_json }, 'deck' => deck.as_json, 'level' => @level}
+    {'player_turn' => @player_turn, 'players' => players.map(&:as_json), 'deck' => deck.as_json, 'level' => @level}
   end
 
   def players_find_by(name: '')
     if name != ''
-      return players.select {|pl| pl.name == name}.first
+      return players.detect {|pl| pl.name == name}
     end
     'No player found'
   end

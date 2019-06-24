@@ -48,13 +48,13 @@ class Player
   end
 
   def as_opponent_json
-    matches_json = matches.map { |match| match.map { |c| c.as_json } }
+    matches_json = matches.map { |match| match.map(&:as_json) }
     {'name' => name, 'cards_in_hand' => cards_left, 'matches' => matches_json}
   end
 
   def as_json(options={})
-    card_json = player_hand.map { |c| c.as_json }
-    matches_json = matches.map { |match| match.map { |c| c.as_json } }
+    card_json = player_hand.map(&:as_json)
+    matches_json = matches.map { |match| match.map(&:as_json) }
     {'name' => name, 'cards' => card_json, 'matches' => matches_json}
   end
 

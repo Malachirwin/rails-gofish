@@ -3,6 +3,7 @@ import Player from './Player'
 import Game from './Game'
 import Opponent from './Opponent'
 import PlayerView from './PlayerView'
+import OpponentView from './OpponentView'
 import PropTypes from "prop-types"
 export default class GameView extends React.Component {
   constructor(props) {
@@ -31,11 +32,22 @@ export default class GameView extends React.Component {
     this.setState({game: new Game(player, opponents, data.game.cards_in_deck, data.game.player_turn)})
   }
 
+  renderOpponents() {
+    return this.state.game.opponents().map((opponent, i) => {
+      return <OpponentView key={i} opponent={opponent}/>
+    })
+  }
+
   render () {
     if(this.state.isLoaded === false) {
       return <div><h1>Loading</h1></div>
     } else {
-      return <PlayerView player={this.state.game.player()} />
+      return (
+        <div>
+          {this.renderOpponents()}
+          <PlayerView player={this.state.game.player()} />
+        </div>
+      )
     }
   }
 }

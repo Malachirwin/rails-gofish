@@ -3,11 +3,11 @@ export default class Opponent {
   constructor(player) {
     this._name = player.name
     this._numberOfCards = player.cards_in_hand
-    this._matches = this.inflateCards(player.matches)
+    this._matches = this.inflateMatches(player.matches)
   }
 
-  inflateCards(cards) {
-    return cards.map(card => new Card(card.rank, card.suit))
+  inflateMatches(matches) {
+    return matches.map(match => match.map(card => new Card(card.rank, card.suit)))
   }
 
   name() {

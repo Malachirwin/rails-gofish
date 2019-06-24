@@ -19,8 +19,16 @@ class GamesController < ApplicationController
     end
   end
 
+  def leave
+    game = Game.find(params[:id])
+    game.game_users.find_by(user: current_user).destroy
+    game.destroy if game.users.none?
+    redirect_to games_path
+  end
+
   def index
     if logged_in?
+      @in_progress = Game.in_progress
       @user = current_user
       @pending_games = Game.pending
     else

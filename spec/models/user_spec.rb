@@ -11,5 +11,13 @@ RSpec.describe User, type: :model do
       user = User.new(name: 'Malachi')
       expect(user.save).to eq(true)
     end
+
+    it 'can not create to users with the same name' do
+      user = User.create(name: 'Malachi')
+      user2 = User.new(name: 'Malachi')
+      user3 = User.new(name: 'MaLaChI')
+      expect(user2.save).to eq false
+      expect(user3.save).to eq false
+    end
   end
 end

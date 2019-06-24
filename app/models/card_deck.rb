@@ -62,7 +62,7 @@ class CardDeck
   end
 
   def shuffle
-    @cards = @cards.shuffle
+    @cards.shuffle!
   end
 
   def as_json options = {}

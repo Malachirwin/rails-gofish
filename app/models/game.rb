@@ -2,7 +2,7 @@ class Game < ApplicationRecord
   has_many :game_users
   has_many :users, through: :game_users
   scope :pending, -> { where(start_at: nil) }
-  scope :in_progress, -> { where.not(finished: nil).where(finished: nil) }
+  scope :in_progress, -> { where.not(start_at: nil).where(finish_at: nil) }
 
   serialize :go_fish_game, GoFishGame
 

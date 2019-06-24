@@ -66,11 +66,15 @@ class GoFishGame
   def players_json(name)
     player = players_find_by(name: name)
     {
-      player_turn: @player_turn,
+      player_turn: player_turn,
       player: player.as_json,
       opponents: opponents(player).map(&:as_opponent_json),
       cards_in_deck: deck.cards_left
     }
+  end
+
+  def player_turn
+    @player_turn
   end
 
   def self.dump(obj)

@@ -4,8 +4,17 @@ h3 = @user.name
 = link_to 'Create Game', new_game_path
 
 h2 Pending Games
--if @pending_games != []
+-if @pending_games.any?
   - @pending_games.each do |game|
-    h3 = link_to "#{game.level} waiting for #{game.player_num - game.users.length} of #{game.player_num} players", game
-/ - @user.games.each do |game|
-/   h3 = link_to "#{game.level} waiting for #{game.player_num - game.users.length} of #{game.player_num} players", game
+    = "Players: #{game.users.map(&:name).join(', ')}"
+    h3 = link_to "Waiting for #{game.player_num - game.users.length} of #{game.player_num} players", game
+- else
+  h3 No games are created yet create one
+
+h2 In Progress
+-if @in_progress.any?
+  - @in_progress.each do |game|
+    -if game.users.include?(@user)
+      h3 = link_to "#{game.users.map(&:name).join(', ')}", game
+- else
+  h3 No games are in progress yet join or create one

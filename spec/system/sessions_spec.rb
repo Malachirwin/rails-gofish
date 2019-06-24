@@ -20,7 +20,7 @@ RSpec.describe "Sessions", type: :system do
       fill_in "Name", :with => "Malachi"
       click_button "commit"
       click_link 'Create Game'
-      expect(page).to have_text("What level do you want")
+      expect(page).to have_text("How many players do you want to play with?")
       click_button 'Create'
       # expect(page.has_route?).to eq(true)
     end

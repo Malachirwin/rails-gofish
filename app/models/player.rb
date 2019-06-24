@@ -22,17 +22,17 @@ class Player
   end
 
   def pair_cards
-    @cards.each do |originalCard|
-      sameRank = @cards.select { |card| card.rank == originalCard.rank }
+    player_hand.each do |originalCard|
+      sameRank = player_hand.select { |card| card.rank == originalCard.rank }
       if sameRank.length == 4
         @matches.push(sameRank)
-        @cards = @cards.select { |card| !sameRank.include? card }
+        @cards = player_hand.select { |card| !sameRank.include? card }
       end
     end
   end
 
   def remove_cards_by_rank rank
-    @cards = @cards.select { |card| !(card.rank == rank) }
+    @cards = player_hand.select { |card| !(card.rank == rank) }
   end
 
   def points

@@ -2,8 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 import CardView from './CardView'
 export default class PlayerView extends React.Component {
-  static propTypes {
-    player: PropTypes.object.isRequired
+  static propTypes = {
+    player: PropTypes.object.isRequired,
+    clicked: PropTypes.func.isRequired,
+    targetCard: PropTypes.string.isRequired
   }
 
   constructor(props) {
@@ -11,8 +13,15 @@ export default class PlayerView extends React.Component {
     this.state
   }
 
+  cardClasses(rank) {
+    if (rank === this.props.targetCard) {
+      return 'highlight card-in-hand'
+    }
+    return 'card-in-hand'
+  }
+
   renderCards() {
-    return this.props.player.cards().map((c, i) => <CardView classes="card-in-hand" key={i} cardSrc={c.src()}/>)
+    return this.props.player.cards().map((c, i) => <CardView clicked={this.props.clicked} classes={this.cardClasses(c.rank())} key={i} cardSrc={c.src()}/>)
   }
 
   render() {

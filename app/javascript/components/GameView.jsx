@@ -9,7 +9,11 @@ import PropTypes from "prop-types"
 export default class GameView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isLoaded: false }
+    this.state = {
+      isLoaded: false,
+      targetCard: '',
+      targetPlayer: ''
+    }
   }
 
   componentDidMount() {
@@ -35,12 +39,20 @@ export default class GameView extends React.Component {
 
   renderOpponents() {
     return this.state.game.opponents().map((opponent, i) => {
-      return <OpponentView key={i} opponent={opponent}/>
+      return <OpponentView targetPlayer={this.state.targetPlayer} clicked={this.setTargetPlayer.bind(this)} key={i} opponent={opponent}/>
     })
   }
 
   renderCenterDeck() {
     return [...Array(this.state.game.cardsInDeck()).keys()].map(i => <CardView classes="card-in-deck" key={i} /> )
+  }
+
+  setTargetCard(rank) {
+    this.setState({targetCard: rank})
+  }
+
+  setTargetPlayer(name) {
+    this.setState({targetPlayer: name})
   }
 
   render () {
@@ -51,7 +63,7 @@ export default class GameView extends React.Component {
         <div className="center">
           <div className="flex-wrapper">{this.renderOpponents()}</div>
           <div className="deck">{this.renderCenterDeck()}</div>
-          <PlayerView player={this.state.game.player()} />
+          <PlayerView targetCard={this.state.targetCard} clicked={this.setTargetCard.bind(this)} player={this.state.game.player()} />
         </div>
       )
     }

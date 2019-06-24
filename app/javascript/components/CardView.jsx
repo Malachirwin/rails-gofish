@@ -11,14 +11,15 @@ array.forEach((card) => {
 hash['cardBack'] = require(`images/backs_custom.jpg`)
 
 export default class CardView extends React.Component {
-  static propTypes {
-    classes: PropTypes.string
-    cardSrc: PropTypes.string
+  static propTypes = {
+    classes: PropTypes.string,
+    cardSrc: PropTypes.string,
+    clicked: PropTypes.func
   }
 
   render () {
     if (this.props.cardSrc !== undefined) {
-      return <img className={this.props.classes} src={hash[this.props.cardSrc]} alt="Card" />
+      return <img onClick={this.props.clicked.bind(this, this.props.cardSrc.slice(1).toUpperCase())} className={this.props.classes} src={hash[this.props.cardSrc]} alt="Card" />
     } else {
       return <img className={this.props.classes} src={hash['cardBack']} alt="Card Back" />
     }

@@ -41,7 +41,7 @@ class GoFishGame
   end
 
   def as_json
-    {'player_turn' => @player_turn, 'players' => players.map(&:as_json), 'deck' => deck.as_json, 'level' => @level}
+    {'player_turn' => player_turn, 'players' => players.map(&:as_json), 'deck' => deck.as_json, 'level' => @level}
   end
 
   def players_find_by(name: '')
@@ -61,8 +61,13 @@ class GoFishGame
       player_turn: player_turn,
       player: player.as_json,
       opponents: opponents(player).map(&:as_opponent_json),
-      cards_in_deck: deck.cards_left
+      cards_in_deck: deck.cards_left,
+      is_turn: is_turn(player)
     }
+  end
+
+  def is_turn player
+    players[player_turn] == player
   end
 
   def player_turn

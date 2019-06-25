@@ -47,6 +47,11 @@ class GamesController < ApplicationController
     @game = Game.new
   end
 
+  def run_round
+    @game = Game.find(params[:id])
+    binding.pry
+  end
+
   private
 
   def join_game game

@@ -59,6 +59,28 @@ export default class GameView extends React.Component {
     this.setState({targetPlayer: name})
   }
 
+  requestCard() {
+    fetch(`/games/${this.props.game_id}/run_round`, {
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        target_card: this.state.targetCard,
+        target_player: this.state.targetPlayer
+      }),
+      credentials: 'same-origin',
+    })
+  }
+
+  button() {
+    if (this.state.targetCard !== '' && this.state.targetPlayer !== '') {
+      return <button onClick={this.requestCard.bind(this)}>Request</button>
+    }
+    return ''
+  }
+
   render () {
     if(this.state.isLoaded === false) {
       return <div><h1>Loading</h1></div>
@@ -68,6 +90,7 @@ export default class GameView extends React.Component {
           <div className="flex-wrapper">{this.renderOpponents()}</div>
           <div className="deck">{this.renderCenterDeck()}</div>
           <PlayerView targetCard={this.state.targetCard} clicked={this.setTargetCard.bind(this)} player={this.state.game.player()} />
+          {this.button()}
         </div>
       )
     }

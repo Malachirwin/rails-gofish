@@ -1,6 +1,7 @@
 CARD_RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 CARD_SUITS = ["D", "H", "C", "S"]
 class CardDeck
+  attr_reader :cards
   def initialize(cards: [])
     @cards = cards
     if @cards == []
@@ -25,10 +26,6 @@ class CardDeck
       card = take_card
       player.take([card]) if card
     end
-  end
-
-  def cards
-    @cards
   end
 
   def take_card

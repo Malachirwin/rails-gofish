@@ -2,17 +2,10 @@ RANKS = { "A" => "Ace", "2" => "2", "3" => "3", "4" => "4", "5" => "5", "6" => "
 SUITS = { "D" => "Diamonds", "H" => "Hearts", "C" => "Clubs", "S" => "Spades" }
 
 class Card
+  attr_reader :rank, :suit
   def initialize rank:, suit:
     @rank = rank
     @suit = suit
-  end
-
-  def rank
-    @rank
-  end
-
-  def suit
-    @suit
   end
 
   def value

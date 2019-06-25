@@ -1,4 +1,5 @@
 class GoFishGame
+  attr_reader :deck, :players, :player_turn
   def initialize player_turn_index: 0, player_names: [], level: 'easy', players: [], deck: CardDeck.new
     @level = level
     @deck = deck
@@ -17,14 +18,6 @@ class GoFishGame
     @players = player_names.map.with_index do |name, index|
       Player.new(name: name, cards: player_hands[index])
     end
-  end
-
-  def players
-    @players
-  end
-
-  def deck
-    @deck
   end
 
   def self.load(hash)
@@ -68,10 +61,6 @@ class GoFishGame
 
   def is_turn player
     players[player_turn] == player
-  end
-
-  def player_turn
-    @player_turn
   end
 
   def self.dump(obj)

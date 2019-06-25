@@ -28,8 +28,8 @@ RSpec.describe "Sessions", type: :system do
     it 'doesn\'t allows you to click cards and highlight it if it is not your turn' do
       session1, session2 = SigninHelper.create_game
       card = session2.find('.card-in-hand', match: :first)
-      card.click
-      expect(session2.has_no_css?('.highlight')).to eq true
+      # This error is thrown when the card is not clickable
+      expect{card.click}.to raise_error(Selenium::WebDriver::Error::UnknownError)
     end
   end
 end

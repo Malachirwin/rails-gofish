@@ -1,12 +1,9 @@
 class Player
+  attr_reader :name, :matches
   def initialize name:, cards: [], matches: []
     @name = name
     @cards = cards
     @matches = matches
-  end
-
-  def name
-    @name
   end
 
   def player_hand
@@ -15,10 +12,6 @@ class Player
 
   def take cards
     @cards.push(*cards)
-  end
-
-  def matches
-    @matches
   end
 
   def pair_cards

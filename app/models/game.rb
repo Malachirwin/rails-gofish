@@ -15,4 +15,8 @@ class Game < ApplicationRecord
   def pending
     start_at == nil
   end
+
+  def in_progress
+    start_at != nil && finish_at == nil
+  end
 end

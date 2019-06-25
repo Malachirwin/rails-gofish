@@ -29,9 +29,17 @@ export default class OpponentView extends React.Component {
     return 'bot'
   }
 
+  handleClick() {
+    if (this.props.isTurn === true) {
+      this.props.clicked(this.props.opponent.name())
+    } else {
+      () => {}
+    }
+  }
+
   render () {
     return (
-      <div className={this.classes()} onClick={this.props.clicked.bind(this, this.props.opponent.name())}>
+      <div className={this.classes()} onClick={this.handleClick.bind(this)}>
         <h3>{this.props.opponent.name()}</h3>
         <div className="opponent-hand">{this.renderCards()}</div>
         <div className="matches">{this.renderMatches()}</div>

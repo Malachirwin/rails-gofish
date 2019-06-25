@@ -1,6 +1,6 @@
 module SigninHelper
   def self.start_sessions(x)
-    return Array.new(x).reduce([]) { |arr| arr.push Capybara::Session.new(:selenium_chrome_headless, Rails.application) }
+    x.times.map { Capybara::Session.new(:selenium_chrome_headless, Rails.application) }
   end
 
   def self.login(sessions)

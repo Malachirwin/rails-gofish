@@ -24,6 +24,12 @@ RSpec.describe "Sessions", type: :system do
       card.click
       expect(session1.find('.highlight', match: :first)).to eq session1.find('.card-in-hand', match: :first)
     end
-  end
 
+    it 'doesn\'t allows you to click cards and highlight it if it is not your turn' do
+      session1, session2 = SigninHelper.create_game
+      card = session2.find('.card-in-hand', match: :first)
+      card.click
+      expect(session2.has_no_css?('.highlight')).to eq true
+    end
+  end
 end

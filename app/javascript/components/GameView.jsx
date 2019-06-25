@@ -36,14 +36,14 @@ export default class GameView extends React.Component {
   }
 
   inflate(data) {
-    const player = new Player(data.game.player)
+    const player = new Player(data.game.player, data.game.is_turn)
     const opponents = data.game.opponents.map(pl => new Opponent(pl))
     this.setState({game: new Game(player, opponents, data.game.cards_in_deck, data.game.player_turn)})
   }
 
   renderOpponents() {
     return this.state.game.opponents().map((opponent, i) => {
-      return <OpponentView targetPlayer={this.state.targetPlayer} clicked={this.setTargetPlayer.bind(this)} key={i} opponent={opponent}/>
+      return <OpponentView isTurn={this.state.game.player().isTurn()} targetPlayer={this.state.targetPlayer} clicked={this.setTargetPlayer.bind(this)} key={i} opponent={opponent}/>
     })
   }
 

@@ -14,7 +14,6 @@ export default class PlayerView extends React.Component {
   }
 
   cardClasses(rank) {
-    debugger
     if (rank === this.props.targetCard && this.props.player.isTurn() === true) {
       return 'highlight card-in-hand'
     }

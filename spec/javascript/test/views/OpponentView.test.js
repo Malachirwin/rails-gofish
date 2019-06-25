@@ -5,24 +5,24 @@ import { shallow } from 'enzyme';
 import 'jest-enzyme'
 
 describe("OpponentView", () => {
+  let card, match, wrapper, player
+  beforeEach(() => {
+    card = {rank: 'A', suit: 'S', value: 'Ace of Spades'}
+    match = [card, card, card, card]
+    player = new Opponent({name: 'Malachi', cards_in_hand: 5, matches: [match, match]})
+    wrapper = shallow(<OpponentView clicked={jest.fn()} targetPlayer="Malachi" opponent={player} />)
+  });
+
   it('has a name', () => {
-    const player = new Opponent({name: 'Malachi', cards_in_hand: 5, matches: []})
-    const wrapper = shallow(<OpponentView clicked={jest.fn()} opponent={player} />)
     expect(wrapper).toIncludeText('Malachi')
   });
 
   it('has a how many cards that the opponent has', () => {
-    const card = {rank: 'A', suit: 'S', value: 'Ace of Spades'}
-    const match = [card, card, card, card]
-    const player = new Opponent({name: 'Malachi', cards_in_hand: 5, matches: [match, match]})
-    const wrapper = shallow(<OpponentView clicked={jest.fn()} targetPlayer="Malachi" opponent={player} />)
     const matches = 8, cards = 5;
     expect(wrapper.find('CardView').length).toEqual(matches + cards)
   });
 
   it('highlights if selected', () => {
-    const player = new Opponent({name: 'Malachi', cards_in_hand: 5, matches: []})
-    const wrapper = shallow(<OpponentView clicked={jest.fn()} targetPlayer="Malachi" opponent={player} />)
     expect(wrapper).toHaveClassName('.highlight-player')
   });
 });

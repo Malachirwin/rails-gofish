@@ -2,6 +2,7 @@ import Card from './Card'
 export default class Player {
   constructor(player) {
     this._name = player.name
+    this._isTurn = player.isTurn
     this._cards = this.inflateCards(player.cards)
     this._matches = this.inflateCards(player.matches)
   }
@@ -20,5 +21,9 @@ export default class Player {
 
   matches() {
     return this._matches
+  }
+
+  isTurn() {
+    return this._isTurn
   }
 }

@@ -18,4 +18,17 @@ module SigninHelper
       session.click_on "Waiting for #{game.player_num - game.users.length} of #{game.player_num} players"
     end
   end
+
+  def self.create_game
+    session1, session2 = SigninHelper.start_sessions(2)
+    SigninHelper.login([session1, session2])
+    session1.click_on 'Create Game'
+    session1.fill_in :game_player_num, with: 2
+    session1.click_on 'Create Game'
+    game = Game.find_by(player_num: 2)
+    SigninHelper.join([session2], game)
+    game.reload
+    session1.driver.refresh
+    [session1, session2]
+  end
 end

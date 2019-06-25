@@ -17,5 +17,13 @@ RSpec.describe "Sessions", type: :system do
       expect(session1).to have_content("The Game Has Started")
       expect(session2).to have_content("The Game Has Started")
     end
+
+    it 'allows you to click cards and highlight it' do
+      session1, session2 = SigninHelper.create_game
+      card = session1.find('.card-in-hand', match: :first)
+      card.click
+      expect(session1.find('.highlight', match: :first)).to eq session1.find('.card-in-hand', match: :first)
+    end
   end
+
 end

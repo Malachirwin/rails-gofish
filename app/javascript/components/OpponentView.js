@@ -4,7 +4,8 @@ import CardView from './CardView'
 export default class OpponentView extends React.Component {
   static propTypes = {
     opponent: PropTypes.object.isRequired,
-    cardSrc: PropTypes.string
+    clicked: PropTypes.func.isRequired,
+    targetPlayer: PropTypes.string.isRequired
   }
 
   renderCards() {

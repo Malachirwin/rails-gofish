@@ -7,6 +7,10 @@ import CardView from './CardView'
 import OpponentView from './OpponentView'
 import PropTypes from "prop-types"
 export default class GameView extends React.Component {
+  static propTypes = {
+    game_id: PropTypes.number.isRequired
+  }
+
   constructor(props) {
     super(props);
     this.state = {

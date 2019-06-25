@@ -5,4 +5,4 @@
   h3 = link_to 'leave', leave_game_path(@game), method: :post
 -else
   h1 The Game Has Started
-  = react_component('GameView', { game_id: @game.id, name: @game.go_fish_game.players[@game.users.index(@user)].name})
+  = react_component('GameView', { game_id: @game.id})

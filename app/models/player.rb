@@ -55,8 +55,10 @@ class Player
     cards = obj['cards'].map do |c|
       Card.from_json(c)
     end
-    matches = obj['matches'].map do |c|
-      Card.from_json(c)
+    matches = obj['matches'].map do |m|
+      m.map do |c|
+        Card.from_json(c)
+      end
     end
     Player.new(name: obj['name'], cards: cards, matches: matches)
   end

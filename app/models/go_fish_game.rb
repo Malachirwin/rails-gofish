@@ -66,4 +66,43 @@ class GoFishGame
   def self.dump(obj)
     obj.as_json
   end
+
+  def next_turn
+    if player_turn == (players.length - 1)
+      @player_turn = 0
+    else
+      @player_turn += 1
+    end
+  end
+
+  def refill_cards
+    players.each do |player|
+      if player.cards_left == 0
+        deck.refill(player)
+      end
+    end
+  end
+
+  def run_turn(fisher:, target:, rank:)
+    result = run_request(fisher: fisher, target: target, rank: rank)
+    players.map(&:pair_cards)
+    refill_cards
+    result
+  end
+
+  def run_request(fisher:, target:, rank:)
+    if fisher.player_hand.select {|c| c.rank == rank}.length > 0
+      cards = target.player_hand.select {|c| c.rank == rank}
+      target.remove_cards_by_rank(rank)
+      if cards.length > 0
+        fisher.take cards
+        cards.map(&:value).join(', ')
+      else
+        card = deck.take_card
+        next_turn
+        fisher.take(card) if card
+        'Go Fish'
+      end
+    end
+  end
 end

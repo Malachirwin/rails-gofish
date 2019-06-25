@@ -49,7 +49,10 @@ class GamesController < ApplicationController
 
   def run_round
     @game = Game.find(params[:id])
-    binding.pry
+    player = @game.go_fish_game.players_find_by(name: current_user.name)
+    target = @game.go_fish_game.players_find_by(name: params['target_player'])
+    result = @game.go_fish_game.run_turn(fisher: player, target: target, rank: params['target_card'])
+    @game.save
   end
 
   private

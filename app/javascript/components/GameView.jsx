@@ -54,7 +54,7 @@ export default class GameView extends React.Component {
   inflate(data) {
     const player = new Player(data.game.player, data.game.is_turn)
     const opponents = data.game.opponents.map(pl => new Opponent(pl))
-    this.setState({game: new Game(player, opponents, data.game.cards_in_deck, data.game.player_turn, data.game.logs)})
+    this.setState({game: new Game(player, opponents, data.game.cards_in_deck, data.game.player_turn, data.game.logs, data.game.player_names)})
   }
 
   renderOpponents() {
@@ -102,12 +102,20 @@ export default class GameView extends React.Component {
     return logs.reverse().slice(0, 20).map((log, i) => <h4 className="book" key={i}>{log}</h4>)
   }
 
+  renderWhoIsPlaying() {
+    if (this.state.game.player().isTurn() === true) {
+      return <h1>It is your turn</h1>
+    }
+    return <h1>Waiting for {this.state.game.playerNames()[this.state.game.playerTurn()]} to finish a turn</h1>
+  }
+
   render () {
     if(this.state.isLoaded === false) {
       return <div><h1>Loading</h1></div>
     } else {
       return (
         <div className="center">
+          {this.renderWhoIsPlaying()}
           <div className="flex-wrapper">{this.renderOpponents()}</div>
           <div className="deck">{this.renderCenterDeck()}</div>
           <PlayerView targetCard={this.state.targetCard} clicked={this.setTargetCard.bind(this)} player={this.state.game.player()} />

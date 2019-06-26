@@ -13,7 +13,7 @@ class GamesController < ApplicationController
       @game.update(start_at: Time.zone.now)
       @game.start
     end
-    if @game.go_fish_game.winners != false
+    if @game.go_fish_game != nil && @game.go_fish_game.winners != false 
       @game.update(finish_at: Time.zone.now)
     end
     respond_to do |format|

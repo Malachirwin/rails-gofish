@@ -1,10 +1,12 @@
-- if @game.pending
+- if @game.pending == true
   = "there are #{@game.users.length} of #{@game.player_num} to start the game"
   - @game.users.each do |user|
     h1 = user.name
   h3 = link_to 'leave', leave_game_path(@game), method: :post
--elsif @game.in_progress
+-elsif @game.in_progress == true
   h1 The Game Has Started
   = react_component('GameView', { game_id: @game.id})
--else
+-elsif @game.finished == true
   == render 'end_game'
+-else
+  h1 Something went wrong please try starting a game or joining one

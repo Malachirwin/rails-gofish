@@ -32,6 +32,17 @@ describe 'GoFishGame' do
     expect(@game.players_json('Malachi')).to include_json( cards_in_deck: 22 )
   end
 
+  it 'updates the log when a turn is run' do
+    player1, player2 = @game.players
+    player1.set_hand([Card.new(rank: '10', suit: 'H'), Card.new(rank: 'A', suit: 'D')])
+    player2.set_hand([Card.new(rank: '10', suit: 'D'), Card.new(rank: '10', suit: 'C'), Card.new(rank: '3', suit: 'C')])
+    result = @game.run_turn(fisher: player1, target: player2, rank: '10')
+    expect(@game.logs.first.fisher).to eq player1
+    expect(@game.logs.first.target).to eq player2
+    expect(@game.logs.first.result).to eq result
+    expect(@game.logs.first.rank).to eq '10'
+  end
+
   describe 'Runs Request and Turn' do
     it 'runs a request' do
       player1, player2 = @game.players

@@ -20,8 +20,15 @@ export default class PlayerView extends React.Component {
     return 'card-in-hand'
   }
 
+  click(rank) {
+    if (this.props.player.isTurn() === true) {
+      this.props.clicked(rank)
+    }
+    () => {}
+  }
+
   renderCards() {
-    return this.props.player.cards().map((c, i) => <CardView clicked={this.props.clicked} classes={this.cardClasses(c.rank())} key={i} cardSrc={c.src()}/>)
+    return this.props.player.cards().map((c, i) => <CardView clicked={this.click.bind(this)} classes={this.cardClasses(c.rank())} key={i} cardSrc={c.src()}/>)
   }
 
   renderMatches() {

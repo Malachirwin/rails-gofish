@@ -85,7 +85,7 @@ class GoFishGame
 
   def run_turn(fisher:, target:, rank:)
     result = run_request(fisher: fisher, target: target, rank: rank)
-    players.map(&:pair_cards)
+    fisher.pair_cards
     refill_cards
     result
   end
@@ -112,6 +112,7 @@ class GoFishGame
         return false
       end
     end
-    players.clone.sort_by{|pl| pl.points}
+    return false if deck.has_cards?
+    return players.clone.sort_by{|pl| pl.points}.reverse()
   end
 end

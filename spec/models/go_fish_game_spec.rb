@@ -94,5 +94,21 @@ describe 'GoFishGame' do
     it 'returns false when there is no winners' do
       expect(@game.winners).to eq false
     end
+
+    it 'returns all the rankings' do
+      def match(rank)
+        [Card.new(rank: rank, suit: 'D'), Card.new(rank: rank, suit: 'H'), Card.new(rank: rank, suit: 'C'), Card.new(rank: rank, suit: 'S')]
+      end
+      player1, player2, player3, player4, player5, player6 = @game.players
+      player1.set_hand(match('10'))
+      player2.set_hand([*match('A'), *match('5')])
+      player3.set_hand([*match('A'), *match('5'), *match('7')])
+      player4.set_hand([*match('J'), *match('K'), *match('Q'), *match('2')])
+      player5.set_hand([*match('3')])
+      player6.set_hand([*match('8'), *match('6')])
+      @game.players.map(&:pair_cards)
+      @game.deck.remove_all_cards_from_deck
+      expect(@game.winners).to eq [player4, player3, player6, player2, player5, player1]
+    end
   end
 end

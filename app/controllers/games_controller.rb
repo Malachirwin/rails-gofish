@@ -13,6 +13,9 @@ class GamesController < ApplicationController
       @game.update(start_at: Time.zone.now)
       @game.start
     end
+    if @game.go_fish_game.winners != false
+      @game.update(finish_at: Time.zone.now)
+    end
     respond_to do |format|
       format.html
       format.json { render json: {game: @game.go_fish_game.players_json(@user.name)} }

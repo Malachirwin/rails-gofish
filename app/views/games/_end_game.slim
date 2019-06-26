@@ -1,0 +1,9 @@
+h1 The Game is over
+-winners = @game.go_fish_game.winners.select {|pl| pl.points == @game.go_fish_game.winners[0].points}
+-others = @game.go_fish_game.winners.select {|pl| pl.points != @game.go_fish_game.winners[0].points}
+-if winners.length == 1
+  h3 = "#{winners.first.name} won with #{winners.first.points} points"
+-else
+  h3 = "#{winners.map(&:name).join(', ')} tied with #{winners.first.points} points"
+-others.each do |player|
+  h3 = "#{player.name} has #{player.points} point(s)"

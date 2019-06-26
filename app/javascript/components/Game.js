@@ -1,10 +1,15 @@
 // import Card from './Card'
 export default class Game {
-  constructor(player, opponents, cardsInDeck, playerTurn) {
+  constructor(player, opponents, cardsInDeck, playerTurn, logs) {
     this._player = player
     this._opponents = opponents
     this._cardsInDeck = cardsInDeck
     this._playerTurn = playerTurn
+    this._logs = logs
+  }
+
+  logs() {
+    return this._logs
   }
 
   player() {

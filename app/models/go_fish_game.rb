@@ -1,11 +1,11 @@
 class GoFishGame
   attr_reader :deck, :players, :player_turn, :logs
-  def initialize player_turn_index: 0, player_names: [], level: 'easy', players: [], deck: CardDeck.new
+  def initialize logs: [], player_turn_index: 0, player_names: [], level: 'easy', players: [], deck: CardDeck.new
     @level = level
     @deck = deck
     @player_turn = player_turn_index
     @deck.shuffle
-    @logs = []
+    @logs = logs
     if player_names != []
       setup(player_names)
     else
@@ -31,7 +31,8 @@ class GoFishGame
     players = game['players'].map {|pl| Player.from_json(pl)}
     level = game['level']
     deck = CardDeck.from_json(game['deck'])
-    GoFishGame.new(player_turn_index: game['player_turn'], players: players, deck: deck, level: level)
+    logs = game['logs'].map {|l| Log.from_json(l)}
+    GoFishGame.new(logs: logs, player_turn_index: game['player_turn'], players: players, deck: deck, level: level)
   end
 
   def as_json
@@ -56,6 +57,7 @@ class GoFishGame
       player: player.as_json,
       opponents: opponents(player).map(&:as_opponent_json),
       cards_in_deck: deck.cards_left,
+      logs: logs.map(&:to_player_json),
       is_turn: is_turn(player)
     }
   end

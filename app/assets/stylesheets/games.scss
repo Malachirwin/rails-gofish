@@ -73,3 +73,23 @@ body {
   width: 45px;
   margin-left: -37px;
 }
+.log {
+  right: 10px;
+  position: fixed;
+  text-align: center;
+  bottom: 20px;
+  background-color: lightgrey;
+  border: 3px solid grey;
+  border-radius: 20px;
+  padding-top: 30px;
+}
+.end_game_log {
+  text-align: center;
+  background-color: lightgrey;
+  border: 3px solid grey;
+  border-radius: 20px;
+  padding-top: 30px;
+}
+.book {
+  margin-top: -20px;
+}

@@ -21,6 +21,10 @@ export default class GameView extends React.Component {
   }
 
   componentDidMount() {
+    this.requestGame()
+  }
+
+  requestGame() {
     fetch(`/games/${this.props.game_id}`, { headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -31,14 +35,18 @@ export default class GameView extends React.Component {
     .then(data => {
       console.log(data)
       this.inflate(data)
-      this.setState({isLoaded: true})
+      this.setState({
+        isLoaded: true,
+        targetCard: '',
+        targetPlayer: ''
+      })
     });
   }
 
   inflate(data) {
     const player = new Player(data.game.player, data.game.is_turn)
     const opponents = data.game.opponents.map(pl => new Opponent(pl))
-    this.setState({game: new Game(player, opponents, data.game.cards_in_deck, data.game.player_turn)})
+    this.setState({game: new Game(player, opponents, data.game.cards_in_deck, data.game.player_turn, data.game.logs)})
   }
 
   renderOpponents() {
@@ -71,6 +79,8 @@ export default class GameView extends React.Component {
         target_player: this.state.targetPlayer
       }),
       credentials: 'same-origin',
+    }).then(data => {
+      this.requestGame()      
     })
   }
 
@@ -79,6 +89,11 @@ export default class GameView extends React.Component {
       return <button onClick={this.requestCard.bind(this)}>Request</button>
     }
     return ''
+  }
+
+  renderLogs() {
+    const logs = this.state.game.logs().slice()
+    return logs.reverse().slice(0, 20).map((log, i) => <h4 className="book" key={i}>{log}</h4>)
   }
 
   render () {
@@ -91,6 +106,8 @@ export default class GameView extends React.Component {
           <div className="deck">{this.renderCenterDeck()}</div>
           <PlayerView targetCard={this.state.targetCard} clicked={this.setTargetCard.bind(this)} player={this.state.game.player()} />
           {this.button()}
+          <div className="log"><h2 className="book">Game Logs</h2>{this.renderLogs()}</div>
+          <button onClick={this.requestGame.bind(this)}>Refresh Game</button>
         </div>
       )
     }

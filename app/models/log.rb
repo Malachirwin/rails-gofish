@@ -7,6 +7,14 @@ class Log
     @result = result
   end
 
+  def to_player_json
+    if result == "Go Fish"
+      "#{fisher.name} asked for the #{rank}'s from #{target.name} and went fishing"
+    else
+      "#{fisher.name} took all the #{rank}'s from #{target.name}"
+    end
+  end
+
   def as_json()
     {'target' => target.as_json, 'fisher' => fisher.as_json, 'rank' => rank, 'result' => result}
   end

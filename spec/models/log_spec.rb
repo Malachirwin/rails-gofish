@@ -40,4 +40,17 @@ describe Player do
     expect(log.fisher.name).to eq @fisher.name
     expect(log.target.name).to eq @target.name
   end
+
+  it 'returns a string to pass to the view' do
+    expect(@log.to_player_json).to eq "#{@fisher.name} took all the #{@rank}'s from #{@target.name}"
+  end
+
+  it 'returns a string a different string if he went fishing' do
+    fisher = Player.new(name: 'Malachi')
+    target = Player.new(name: 'Bob')
+    rank = 'A'
+    result = 'Go Fish'
+    log = Log.new(fisher: fisher, target: target, rank: rank, result: result)
+    expect(log.to_player_json).to eq "#{fisher.name} asked for the #{rank}'s from #{target.name} and went fishing"
+  end
 end

@@ -1,12 +1,13 @@
 class GoFishGame
-  attr_reader :deck, :players, :player_turn, :logs
+  attr_reader :deck, :players, :player_turn, :logs, :player_names
   def initialize logs: [], player_turn_index: 0, player_names: [], level: 'easy', players: [], deck: CardDeck.new
     @level = level
     @deck = deck
+    @player_names = player_names
     @player_turn = player_turn_index
     @deck.shuffle
     @logs = logs
-    if player_names != []
+    if players == []
       setup(player_names)
     else
       @players = players
@@ -32,11 +33,11 @@ class GoFishGame
     level = game['level']
     deck = CardDeck.from_json(game['deck'])
     logs = game['logs'].map {|l| Log.from_json(l)}
-    GoFishGame.new(logs: logs, player_turn_index: game['player_turn'], players: players, deck: deck, level: level)
+    GoFishGame.new(player_names: game['player_names'], logs: logs, player_turn_index: game['player_turn'], players: players, deck: deck, level: level)
   end
 
   def as_json
-    {'logs'=> logs.map(&:as_json), 'player_turn' => player_turn, 'players' => players.map(&:as_json), 'deck' => deck.as_json, 'level' => @level}
+    {'player_names' => player_names, 'logs'=> logs.map(&:as_json), 'player_turn' => player_turn, 'players' => players.map(&:as_json), 'deck' => deck.as_json, 'level' => @level}
   end
 
   def players_find_by(name: '')
@@ -57,6 +58,7 @@ class GoFishGame
       player: player.as_json,
       opponents: opponents(player).map(&:as_opponent_json),
       cards_in_deck: deck.cards_left,
+      player_names: player_names,
       logs: logs.map(&:to_player_json),
       is_turn: is_turn(player)
     }

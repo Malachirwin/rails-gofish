@@ -90,5 +90,9 @@ describe 'GoFishGame' do
       expect(player1.cards_left).to eq 4
       expect(player2.cards_left).to eq 5
     end
+
+    it 'returns false when there is no winners' do
+      expect(@game.winners).to eq false
+    end
   end
 end

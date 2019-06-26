@@ -105,4 +105,13 @@ class GoFishGame
       end
     end
   end
+
+  def winners
+    players.each do |player|
+      if player.cards_left != 0
+        return false
+      end
+    end
+    players.clone.sort_by{|pl| pl.points}
+  end
 end

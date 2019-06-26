@@ -10,6 +10,7 @@ class CardDeck
   end
 
   def create_deck
+    @cards = []
     CARD_SUITS.each do |suit|
       CARD_RANKS.each do |rank|
         @cards.push(Card.new(rank: rank, suit: suit))

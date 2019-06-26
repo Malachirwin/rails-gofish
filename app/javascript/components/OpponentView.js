@@ -32,8 +32,6 @@ export default class OpponentView extends React.Component {
   handleClick() {
     if (this.props.isTurn === true) {
       this.props.clicked(this.props.opponent.name())
-    } else {
-      () => {}
     }
   }
 

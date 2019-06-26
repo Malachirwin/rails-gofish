@@ -8,11 +8,6 @@ export default class PlayerView extends React.Component {
     targetCard: PropTypes.string.isRequired
   }
 
-  constructor(props) {
-    super(props)
-    this.state
-  }
-
   cardClasses(rank) {
     if (rank === this.props.targetCard && this.props.player.isTurn() === true) {
       return 'highlight card-in-hand'
@@ -24,7 +19,6 @@ export default class PlayerView extends React.Component {
     if (this.props.player.isTurn() === true) {
       this.props.clicked(rank)
     }
-    () => {}
   }
 
   renderCards() {

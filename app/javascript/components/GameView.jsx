@@ -6,6 +6,7 @@ import PlayerView from './PlayerView'
 import CardView from './CardView'
 import OpponentView from './OpponentView'
 import PropTypes from "prop-types"
+import Pusher from 'pusher-js';
 export default class GameView extends React.Component {
   static propTypes = {
     game_id: PropTypes.number.isRequired
@@ -22,6 +23,14 @@ export default class GameView extends React.Component {
 
   componentDidMount() {
     this.requestGame()
+    const pusher = new Pusher('39f3a6aa23acc09d4631', {
+      cluster: 'us2',
+      forceTLS: true
+    });
+    const channel = pusher.subscribe('app');
+    channel.bind(`Game/${this.props.game_id}/show`, (data) => {
+      this.requestGame()
+    });
   }
 
   requestGame() {
@@ -33,7 +42,6 @@ export default class GameView extends React.Component {
     })
     .then(data => data.json())
     .then(data => {
-      console.log(data)
       this.inflate(data)
       this.setState({
         isLoaded: true,
@@ -79,8 +87,6 @@ export default class GameView extends React.Component {
         target_player: this.state.targetPlayer
       }),
       credentials: 'same-origin',
-    }).then(data => {
-      this.requestGame()      
     })
   }
 
@@ -107,7 +113,6 @@ export default class GameView extends React.Component {
           <PlayerView targetCard={this.state.targetCard} clicked={this.setTargetCard.bind(this)} player={this.state.game.player()} />
           {this.button()}
           <div className="log"><h2 className="book">Game Logs</h2>{this.renderLogs()}</div>
-          <button onClick={this.requestGame.bind(this)}>Refresh Game</button>
         </div>
       )
     }

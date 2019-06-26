@@ -89,7 +89,13 @@ body {
   border: 3px solid grey;
   border-radius: 20px;
   padding-top: 30px;
+  padding-right: 10px;
+  padding-left: 10px
 }
 .book {
   margin-top: -20px;
+}
+.flex-log {
+  display: flex;
+  justify-content: center;
 }

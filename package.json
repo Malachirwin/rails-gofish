@@ -26,6 +26,7 @@
     "babel-preset-es2016": "^6.24.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
+    "pusher-js": "^4.4.0",
     "webpack-dev-server": "^3.7.2"
   },
   "jest": {

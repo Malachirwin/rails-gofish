@@ -1,3 +1,5 @@
+require 'pusher'
+
 class ApplicationController < ActionController::Base
   def log_in(user)
     session[:user_id] = user.id
@@ -20,5 +22,15 @@ class ApplicationController < ActionController::Base
   def log_out
     session.delete(:user_id)
     @current_user = nil
+  end
+
+  def pusher_client
+    @pusher_client ||= Pusher::Client.new(
+      app_id: '812121',
+      key: '39f3a6aa23acc09d4631',
+      secret: '162eb6ba1d17a5ab7df3',
+      cluster: 'us2',
+      encrypted: true
+    )
   end
 end

@@ -122,4 +122,16 @@ describe 'GoFishGame' do
       expect(@game.winners).to eq [player4, player3, player6, player2, player5, player1]
     end
   end
+
+  it "runs a turn and skips players who don't have cards" do
+    expect(@game.player_turn).to eq 0
+    player1, player2, player3, player4 = @game.players
+    player1.set_hand([Card.new(rank: '10', suit: 'H'), Card.new(rank: 'A', suit: 'D')])
+    player4.set_hand([Card.new(rank: '4', suit: 'D'), Card.new(rank: 'K', suit: 'C'), Card.new(rank: '3', suit: 'C')])
+    player2.set_hand([])
+    player3.set_hand([])
+    @game.deck.remove_all_cards_from_deck
+    result = @game.run_request(fisher: player1, target: player4, rank: '10')
+    expect(@game.player_turn).to eq 3
+  end
 end

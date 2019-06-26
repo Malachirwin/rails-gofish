@@ -78,6 +78,9 @@ class GoFishGame
     else
       @player_turn += 1
     end
+    if players[player_turn].cards_left == 0
+      next_turn
+    end
   end
 
   def refill_cards

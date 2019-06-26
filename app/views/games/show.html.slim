@@ -10,11 +10,3 @@
   == render 'end_game'
 -else
   h1 Something went wrong please try starting a game or joining one
-javascript:
-  const pusher = new Pusher("e09b3296658d893c5367", {
-    cluster: "us2"
-  });
-  const channel = pusher.subscribe(`Game${@game.id}`);
-  channel.bind('Game-is-ended', function(data) {
-    window.location.reload()
-  });

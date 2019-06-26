@@ -1,8 +1,6 @@
 h1 Welcome to Go Fish
 h3 = @user.name
 
-= link_to 'Create Game', new_game_path
-
 h2 Pending Games
 -if @pending_games.any?
   - @pending_games.each do |game|

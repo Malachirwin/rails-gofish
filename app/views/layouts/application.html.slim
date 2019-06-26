@@ -9,6 +9,9 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application'
   body
+    .header
+      = link_to 'Home', games_url, class: 'tag'
+      '
+      = link_to 'Create Game', new_game_path, class: 'tag'
     .center
       = yield
-      = link_to 'Back', games_url

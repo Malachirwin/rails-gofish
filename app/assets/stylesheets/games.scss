@@ -99,3 +99,14 @@ body {
   display: flex;
   justify-content: center;
 }
+.tag {
+  color: hsl(106, 100%, 26%);
+  text-decoration: none;
+  &:hover {
+    color: hsl(100, 40%, 26%);
+  }
+}
+.header {
+  background-color: #003d55;
+  padding: 10px;
+}

@@ -14,9 +14,9 @@ export default class OpponentView extends React.Component {
 
   renderMatches() {
     return this.props.opponent.matches().map((match, index) => {
-      return <div key={index} className="inbetween-match"> {
+      return <div key={index} className="matches inbetween-match"> {
         match.map((c, i) => {
-          return <CardView classes='match' key={i} cardSrc={c.src()}/>
+          return <CardView clicked={() => {}} classes='match' key={i} cardSrc={c.src()}/>
         })
       }</div>
     })
@@ -42,7 +42,7 @@ export default class OpponentView extends React.Component {
       <div className={this.classes()} onClick={this.handleClick.bind(this)}>
         <h3>{this.props.opponent.name()}</h3>
         <div className="opponent-hand">{this.renderCards()}</div>
-        <div className="matches">{this.renderMatches()}</div>
+        <div className="matchesWrapper">{this.renderMatches()}</div>
       </div>
     )
   }

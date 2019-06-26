@@ -2,9 +2,9 @@ CARD_RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 CARD_SUITS = ["D", "H", "C", "S"]
 class CardDeck
   attr_reader :cards
-  def initialize(cards: [])
+  def initialize(cards: "No cards passed in")
     @cards = cards
-    if @cards == []
+    if @cards == "No cards passed in"
       create_deck
     end
   end

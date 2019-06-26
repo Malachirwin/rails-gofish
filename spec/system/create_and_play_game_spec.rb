@@ -2,7 +2,7 @@ require "rails_helper"
 
 require_relative '../support/signin_helper'
 
-RSpec.describe "Sessions", type: :system do
+RSpec.describe "Games", type: :system do
   describe '/create_game' do
     it 'once logged in it allows you to create a game', js: true do
       session1, session2 = SigninHelper.start_sessions(2)

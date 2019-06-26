@@ -4,11 +4,15 @@ export default class Player {
     this._name = player.name
     this._isTurn = isTurn
     this._cards = this.inflateCards(player.cards)
-    this._matches = this.inflateCards(player.matches)
+    this._matches = this.inflateMatches(player.matches)
   }
 
   inflateCards(cards) {
     return cards.map(card => new Card(card.rank, card.suit, card.value))
+  }
+
+  inflateMatches(matches) {
+    return matches.map(match => match.map(card => new Card(card.rank, card.suit, card.value)))
   }
 
   name() {

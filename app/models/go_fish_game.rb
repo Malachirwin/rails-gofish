@@ -1,5 +1,5 @@
 class GoFishGame
-  attr_reader :deck, :players, :player_turn, :logs, :player_names, :player_num
+  attr_reader :deck, :players, :player_turn, :logs, :player_names, :player_num, :level
   def initialize player_num:, logs: [], player_turn_index: 0, player_names: [], level: 'easy', players: [], deck: CardDeck.new
     @level = level
     @deck = deck
@@ -16,13 +16,17 @@ class GoFishGame
     end
   end
 
+  def add_log(log)
+    @logs.push(log)
+  end
+
   def setup(player_names)
-    player_hands = @deck.deal(player_names.length)
+    player_hands = @deck.deal(player_num)
     @players = player_names.map.with_index do |name, index|
       Player.new(name: name, cards: player_hands[index])
     end
-    while @players.length != @player_num
-      @players.push(Player.new(name: "Bot #{@players.length - 1}", cards: player_hands[@players.length - 1], bot: true))
+    while @players.length < @player_num
+      @players.push(Player.new(name: "Bot #{@players.length}", cards: player_hands[@players.length], bot: true))
     end
   end
 
@@ -103,40 +107,45 @@ class GoFishGame
     fisher.pair_cards
     refill_cards
     next_turn if fisher.cards_left == 0
+    run_bots_turns
     result
   end
 
-  def pick_target_and_player
+  def pick_target_and_rank
     if level == 'easy'
-      randomCardAndPlayer(next_player)
+      random_card_and_player
+      pick_player_and_card(next_player)
     else
-      pickPlayerAndCard(next_player)
+      pick_player_and_card(next_player)
     end
   end
-  #
+
   def random_card_and_player
-    player_to_ask = players[rand(players.length)]
-    while (player_to_ask.cards_left == 0 || player_to_ask === next_player)
+    player_to_ask = players[rand(players.length - 1)]
+    until (player_to_ask != next_player && player_to_ask.cards_left != 0)
       player_to_ask = players[rand(players.length)]
     end
-    return [next_player.player_hand[rand(next_player.player_hand.length)], player_to_ask]
+    return [next_player.player_hand[rand(next_player.player_hand.length - 1)], player_to_ask]
   end
 
   def pick_player_and_card(player)
-    cards = player.player_hand.select { |card| logs.map{ |log| log.include?(card.rank) }.include?(true) }
+    cards = player.player_hand.select { |card| logs.map{ |log| log.rank == card.rank }.include?(true) }
     if cards.length != 0
-      player2 = player_find_by(name: logs.select{|log| log.include?(cards.first.rank)}[0].match(/^([\w\-]+)/)[0])
-      if player != player2
-        return [cards.first, player2]
+      logs.select{|log| log.rank == cards.first.rank}.reverse[0..9].map do |log|
+        if player.name != log.fisher.name && log.fisher.cards_left != 0
+          return [cards.first, players_find_by(name: log.fisher.name)]
+        end
       end
     end
     return random_card_and_player
   end
-  #
-  # def run_bots_turns
-  #   if next_player.bot
-  #     run_turn(fisher: next_player, )
-  # end
+
+  def run_bots_turns
+    if next_player.bot && !winners
+      card, target = pick_target_and_rank
+      run_turn(fisher: next_player, target: target, rank: card.rank)
+    end
+  end
 
   def run_request(fisher:, target:, rank:)
     if fisher.player_hand.select {|c| c.rank == rank}.length > 0

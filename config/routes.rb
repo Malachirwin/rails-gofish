@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     member do
       post :leave
       post :run_round
+      post :start_game_now
     end
   end
   root 'sessions#new'

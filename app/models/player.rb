@@ -4,6 +4,7 @@ class Player
     @name = name
     @cards = cards
     @matches = matches
+    @bot = bot
   end
 
   def player_hand

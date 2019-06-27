@@ -16,11 +16,7 @@ class GamesController < ApplicationController
     end
     if @game.go_fish_game != nil && @game.go_fish_game.winners != false && @game.finish_at == nil
       @game.update(finish_at: Time.zone.now)
-<<<<<<< HEAD
       pusher_client.trigger("Game#{@game.id}", "game-has-changed", {message: 'The game is ended'})
-=======
-      pusher_client.trigger("Game-ended", "Game-is-ended", {message: 'The game is ended'})
->>>>>>> make-pusher-work-in-other-places
     end
     respond_to do |format|
       format.html

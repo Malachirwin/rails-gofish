@@ -1,3 +1,4 @@
+/ script src="https://js.pusher.com/4.2/pusher.min.js"
 - if @game.pending == true
   h1 = "There are #{@game.users.length} of #{@game.player_num} to start the game"
   - @game.users.each do |user|
@@ -10,3 +11,18 @@
   == render 'end_game'
 -else
   h1 Something went wrong please try starting a game or joining one
+<<<<<<< HEAD
+=======
+// javascript:
+//   const pusher = new Pusher("39f3a6aa23acc09d4631", {
+//     cluster: "us2"
+//   });
+//   // const channel = pusher.subscribe(`Game-ended`);
+//   // channel.bind('Game-is-ended', (data) => {
+//   //   window.location.reload()
+//   // });
+//   const channel = pusher.subscribe('someone-joined')
+//   channel.bind('another-joined', (data) => {
+//     window.location.reload()
+//   });
+>>>>>>> make-pusher-work-in-other-places

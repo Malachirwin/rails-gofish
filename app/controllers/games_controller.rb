@@ -8,6 +8,7 @@ class GamesController < ApplicationController
     @user = current_user
     unless @game.users.include?(@user) || @user == nil
       join_game @game
+      pusher_client.trigger("app", "another-joined", {message: 'Another player joined'})
     end
     if @game.users.length == @game.player_num && @game.start_at == nil
       @game.update(start_at: Time.zone.now)
@@ -15,7 +16,11 @@ class GamesController < ApplicationController
     end
     if @game.go_fish_game != nil && @game.go_fish_game.winners != false && @game.finish_at == nil
       @game.update(finish_at: Time.zone.now)
+<<<<<<< HEAD
       pusher_client.trigger("Game#{@game.id}", "game-has-changed", {message: 'The game is ended'})
+=======
+      pusher_client.trigger("Game-ended", "Game-is-ended", {message: 'The game is ended'})
+>>>>>>> make-pusher-work-in-other-places
     end
     respond_to do |format|
       format.html
@@ -43,6 +48,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(create_game_params)
     if @game.save
+      pusher_client.trigger("app", "new-games", {message: 'Another Game was added'})
       redirect_to @game
     end
   end

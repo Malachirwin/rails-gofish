@@ -1,8 +1,11 @@
-debugger
-const pusher = new Pusher("39f3a6aa23acc09d4631", {
-  cluster: "us2"
-});
-const channel = pusher.subscribe('app');
+// debugger
+import Pusher from 'pusher-js'
+if (!window.pusher) {
+  window.pusher = new Pusher("39f3a6aa23acc09d4631", {
+    cluster: "us2"
+  });
+}
+const channel = window.pusher.subscribe('app');
 channel.bind('new-games', (data) => {
   if (window.location.pathname === '/games') {
     window.location.reload()

@@ -23,11 +23,13 @@ export default class GameView extends React.Component {
 
   componentDidMount() {
     this.requestGame()
-    const pusher = new Pusher('39f3a6aa23acc09d4631', {
-      cluster: 'us2',
-      forceTLS: true
-    });
-    const channel = pusher.subscribe(`Game${this.props.game_id}`);
+    if (!window.pusher) {
+      window.pusher = new Pusher('39f3a6aa23acc09d4631', {
+        cluster: 'us2',
+        forceTLS: true
+      });
+    }
+    const channel = window.pusher.subscribe(`Game${this.props.game_id}`);
     channel.bind(`game-has-changed`, (data) => {
       if (data.message === 'Round has been run') {
         this.requestGame()

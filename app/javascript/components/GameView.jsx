@@ -27,9 +27,13 @@ export default class GameView extends React.Component {
       cluster: 'us2',
       forceTLS: true
     });
-    const channel = pusher.subscribe('app');
-    channel.bind(`Game/${this.props.game_id}/show`, (data) => {
-      this.requestGame()
+    const channel = pusher.subscribe(`Game${this.props.game_id}`);
+    channel.bind(`game-has-changed`, (data) => {
+      if (data.message === 'Round has been run') {
+        this.requestGame()
+      } else {
+        window.location.reload()
+      }
     });
   }
 
@@ -92,7 +96,7 @@ export default class GameView extends React.Component {
 
   button() {
     if (this.state.targetCard !== '' && this.state.targetPlayer !== '') {
-      return <button onClick={this.requestCard.bind(this)}>Request</button>
+      return <button className="button" onClick={this.requestCard.bind(this)}>Request</button>
     }
     return ''
   }

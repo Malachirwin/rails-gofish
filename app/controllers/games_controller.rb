@@ -13,9 +13,9 @@ class GamesController < ApplicationController
       @game.update(start_at: Time.zone.now)
       @game.start
     end
-    if @game.go_fish_game != nil && @game.go_fish_game.winners != false
+    if @game.go_fish_game != nil && @game.go_fish_game.winners != false && @game.finish_at == nil
       @game.update(finish_at: Time.zone.now)
-      pusher_client.trigger("Game#{@game.id}", "Game-is-ended", {message: 'The game is ended'})
+      pusher_client.trigger("Game#{@game.id}", "game-has-changed", {message: 'The game is ended'})
     end
     respond_to do |format|
       format.html
@@ -57,7 +57,7 @@ class GamesController < ApplicationController
     target = @game.go_fish_game.players_find_by(name: params['target_player'])
     result = @game.go_fish_game.run_turn(fisher: player, target: target, rank: params['target_card'])
     @game.save
-    pusher_client.trigger('app', "Game/#{@game.id}/show", {message: 'Round has been run'})
+    pusher_client.trigger("Game#{@game.id}", "game-has-changed", {message: 'Round has been run'})
   end
 
   private

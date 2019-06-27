@@ -1,8 +1,8 @@
 - if @game.pending == true
-  = "there are #{@game.users.length} of #{@game.player_num} to start the game"
+  h1 = "There are #{@game.users.length} of #{@game.player_num} to start the game"
   - @game.users.each do |user|
     h1 = user.name
-  h3 = link_to 'leave', leave_game_path(@game), method: :post
+  h3 = link_to 'leave', leave_game_path(@game), method: :post, class: 'link'
 -elsif @game.in_progress == true
   h1 The Game Has Started
   = react_component('GameView', { game_id: @game.id})

@@ -8,7 +8,7 @@ class GamesController < ApplicationController
     @user = current_user
     unless @game.users.include?(@user) || @user == nil
       join_game @game
-      pusher_client.trigger("someone-joined", "another-joined", {message: 'Another player joined'})
+      pusher_client.trigger("app", "another-joined", {message: 'Another player joined'})
     end
     if @game.users.length == @game.player_num && @game.start_at == nil
       @game.update(start_at: Time.zone.now)
@@ -42,9 +42,9 @@ class GamesController < ApplicationController
   end
 
   def create
-    pusher_client.trigger("app", "new-games", {message: 'Another Game was added'})
     @game = Game.new(create_game_params)
     if @game.save
+      pusher_client.trigger("app", "new-games", {message: 'Another Game was added'})
       redirect_to @game
     end
   end

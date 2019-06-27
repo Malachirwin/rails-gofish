@@ -1,4 +1,3 @@
-script src="https://js.pusher.com/4.2/pusher.min.js"
 h1 Welcome to Go Fish
 h3 = @user.name
 
@@ -17,11 +16,3 @@ h2 In Progress
       h3 = link_to "#{game.users.map(&:name).join(', ')}", game
 - else
   h3 No games are in progress yet join or create one
-javascript:
-  const pusher = new Pusher("39f3a6aa23acc09d4631", {
-    cluster: "us2"
-  });
-  const channel = pusher.subscribe('app');
-  channel.bind('new-games', (data) => {
-    window.location.reload()
-  });

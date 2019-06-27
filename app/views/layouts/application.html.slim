@@ -1,5 +1,6 @@
 doctype html
 html
+  script src="https://js.pusher.com/4.2/pusher.min.js"
   head
     title
       | ReactRailsGofish
@@ -8,6 +9,7 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application'
+    = javascript_pack_tag 'pusher'
   body
     .header
       = link_to 'Home', games_url, class: 'tag'

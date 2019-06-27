@@ -1,4 +1,3 @@
-debugger
 const pusher = new Pusher("39f3a6aa23acc09d4631", {
   cluster: "us2"
 });

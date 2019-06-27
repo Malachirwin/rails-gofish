@@ -2,7 +2,7 @@ require 'rails_helper'
 describe 'GoFishGame' do
   before do
     player_names = ['Malachi', 'Jimmy', 'Bob', 'Fred', 'Orange', 'Apple']
-    @game = GoFishGame.new(level: 'easy', player_names: player_names)
+    @game = GoFishGame.new(level: 'easy', player_names: player_names, player_num: player_names.length)
   end
 
   it 'Starts a game with x number of players' do
@@ -132,6 +132,15 @@ describe 'GoFishGame' do
     player3.set_hand([])
     @game.deck.remove_all_cards_from_deck
     result = @game.run_request(fisher: player1, target: player4, rank: '10')
+    binding.pry
     expect(@game.player_turn).to eq 3
+  end
+
+  describe "Runs bot turns" do
+    it 'fills the game with bots' do
+      player_names = ['Malachi', 'Jimmy']
+      game = GoFishGame.new(level: 'easy', player_names: player_names, player_num: 4)
+      expect(game.players.length).to eq 4
+    end
   end
 end

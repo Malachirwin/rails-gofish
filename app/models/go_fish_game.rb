@@ -119,18 +119,17 @@ class GoFishGame
     while (player_to_ask.cards_left == 0 || player_to_ask === next_player)
       player_to_ask = players[rand(players.length)]
     end
-    return next_player.player_hand[rand(next_player.player_hand)] player_to_ask
+    return [next_player.player_hand[rand(next_player.player_hand.length)], player_to_ask]
   end
 
-  pick_player_and_card(player)
-    cards = player.player_hand.select { |card| logs.map{ |log| log.includes?(card.rank) }.includes?(true) }
-
-    # if cards.length !== 0
-    #   player2 = player_find_by(name: logs.select{|log| log.includes(cards.first.rank)}[0].match(/^([\w\-]+)/)[0])
-    #   if player !== player2
-    #     return [cards.first, player2]
-    #   end
-    # end
+  def pick_player_and_card(player)
+    cards = player.player_hand.select { |card| logs.map{ |log| log.include?(card.rank) }.include?(true) }
+    if cards.length != 0
+      player2 = player_find_by(name: logs.select{|log| log.include?(cards.first.rank)}[0].match(/^([\w\-]+)/)[0])
+      if player != player2
+        return [cards.first, player2]
+      end
+    end
     return random_card_and_player
   end
   #

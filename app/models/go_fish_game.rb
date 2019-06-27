@@ -78,9 +78,7 @@ class GoFishGame
     else
       @player_turn += 1
     end
-    if players[player_turn].cards_left == 0
-      next_turn
-    end
+    next_turn if players[player_turn].cards_left == 0 && winners == false
   end
 
   def refill_cards
@@ -96,6 +94,7 @@ class GoFishGame
     @logs.push(Log.new(fisher: fisher, target: target, rank: rank, result: result))
     fisher.pair_cards
     refill_cards
+    next_turn if fisher.cards_left == 0
     result
   end
 

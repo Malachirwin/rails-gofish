@@ -5,4 +5,4 @@ h1 How many players do you want to play with?
   = f.label 'Number of Player: '
   = f.number_field :player_num, min: 2 ,max: 6, value: 4
   = f.hidden_field :go_fish_game
-  = f.submit class: 'button'
+  = f.submit class: 'button', value: 'Start Game'

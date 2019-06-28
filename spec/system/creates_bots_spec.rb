@@ -9,7 +9,7 @@ RSpec.describe "Games", type: :system do
       SigninHelper.login([session1])
       session1.click_on 'Create Game'
       session1.fill_in :game_player_num, with: 5
-      session1.click_button('Create Game')
+      session1.click_on 'Start Game'
       session1.click_on 'Start Now With Bots'
       expect(session1).to have_text('The Game is in Progress')
       expect(session1).to have_text('Bot 1')

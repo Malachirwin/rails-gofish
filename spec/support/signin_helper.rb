@@ -24,14 +24,14 @@ module SigninHelper
     SigninHelper.login([session1, session2])
     session1.click_on 'Create Game'
     session1.fill_in :game_player_num, with: 2
-    session1.click_on 'Create Game'
+    session1.click_on 'Start Game'
     game = Game.find_by(player_num: 2)
     SigninHelper.join([session2], game)
     game.reload
     session1.driver.refresh
     [session1, session2]
   end
-  
+
   def self.game
     player = Player.new(name: 'Player 1', cards: [Card.new(rank: 'A', suit: 'H'), Card.new(rank: 'A', suit: 'C'), Card.new(rank: 'A', suit: 'S')])
     player2 = Player.new(name: 'Player 2', cards: [Card.new(rank: 'A', suit: 'D')])

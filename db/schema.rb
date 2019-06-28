@@ -10,17 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_28_192337) do
-
-  create_table "bot_leader_boards", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "wins"
-    t.integer "games_played"
-    t.integer "matches"
-    t.integer "losses"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2019_06_28_201533) do
 
   create_table "game_users", force: :cascade do |t|
     t.integer "user_id"
@@ -41,12 +31,13 @@ ActiveRecord::Schema.define(version: 2019_06_28_192337) do
 
   create_table "user_leader_boards", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "wins"
-    t.integer "games_played"
-    t.integer "matches"
-    t.integer "losses"
+    t.integer "wins", default: 0
+    t.integer "games_played", default: 0
+    t.integer "matches", default: 0
+    t.integer "losses", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "ties", default: 0
   end
 
   create_table "users", force: :cascade do |t|

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post :update_level
     end
   end
+  get 'leader_boards', to: 'games#leader_boards'
   root 'sessions#new'
   post 'sessions/create'
 end

@@ -3,6 +3,11 @@ class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :logged_in?
 
+  def leader_boards
+    @leader_boards = UserLeaderBoard.order(wins: :desc)
+    @users = User.all
+  end
+
   def show
     @game = Game.find(params[:id])
     # binding.pry
@@ -18,6 +23,7 @@ class GamesController < ApplicationController
     if @game.go_fish_game != nil && @game.go_fish_game.winners != false && @game.finish_at == nil
       @game.update(finish_at: Time.zone.now)
       pusher_client.trigger("Game#{@game.id}", "game-has-changed", {message: 'The game is ended'})
+      @game.update_leader_boards
     end
     respond_to do |format|
       format.html
@@ -79,6 +85,8 @@ class GamesController < ApplicationController
   end
 
   private
+
+
 
   def join_game game
     @game_user = GameUser.create(game_id: game.id, user_id: @user.id)

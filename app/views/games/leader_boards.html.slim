@@ -1,0 +1,10 @@
+-if @leader_boards.any?
+  h1 Leader Board
+  - @leader_boards.each do |board|
+    h3 = @users.find(board.user_id).name
+    h4 = "Wins: #{board.wins}"
+    h4 = "Ties: #{board.ties}"
+    h4 = "Losses: #{board.losses}"
+    h4 = "Total Matches: #{board.matches}"
+-else
+  h1 No Leader Boards

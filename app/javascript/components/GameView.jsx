@@ -140,13 +140,13 @@ export default class GameView extends React.Component {
       return (
         <div className="center">
           <h3>level: {this.state.game.level()}</h3>
+          {this.setLevelButton()}
           {this.renderWhoIsPlaying()}
           <div className="flex-wrapper">{this.renderOpponents()}</div>
           <div className="deck">{this.renderCenterDeck()}</div>
           <PlayerView targetCard={this.state.targetCard} clicked={this.setTargetCard.bind(this)} player={this.state.game.player()} />
           {this.button()}
           <div className="log"><h2 className="book">Game Logs</h2>{this.renderLogs()}</div>
-          {this.setLevelButton()}
         </div>
       )
     }

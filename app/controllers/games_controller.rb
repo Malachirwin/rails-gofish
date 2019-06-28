@@ -9,10 +9,11 @@ class GamesController < ApplicationController
     @user = current_user
     unless @game.users.include?(@user) || @user == nil
       join_game @game
-      pusher_client.trigger("app", "another-joined", {message: 'Another player joined'})
+      pusher_client.trigger("app", "another-joined", {game_id: @game.id, user_id: "#{@user.id}"})
     end
     if @game.users.length == @game.player_num && @game.start_at == nil
       @game.start
+      pusher_client.trigger("app", "game-is-starting", {game_id: @game.id, user_id: "#{@user.id}"})
     end
     if @game.go_fish_game != nil && @game.go_fish_game.winners != false && @game.finish_at == nil
       @game.update(finish_at: Time.zone.now)
@@ -27,6 +28,7 @@ class GamesController < ApplicationController
   def start_game_now
     @game = Game.find(params[:id])
     @game.start
+    pusher_client.trigger("app", "game-is-starting", {game_id: @game.id, user_id: "#{current_user.id}"})
     redirect_to @game
   end
 
@@ -34,6 +36,7 @@ class GamesController < ApplicationController
     game = Game.find(params[:id])
     game.game_users.find_by(user: current_user).destroy
     game.destroy if game.users.none?
+    pusher_client.trigger("app", "someone-left", {game_id: game.id, user_id: "#{current_user.id}"})
     redirect_to games_path
   end
 
@@ -50,7 +53,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(create_game_params)
     if @game.save
-      pusher_client.trigger("app", "new-games", {message: 'Another Game was added'})
+      pusher_client.trigger("app", "new-games", {game_id: @game.id, user_id: "#{current_user.id}"})
       redirect_to @game
     end
   end

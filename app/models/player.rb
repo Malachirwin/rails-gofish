@@ -1,9 +1,10 @@
 class Player
-  attr_reader :name, :matches
-  def initialize name:, cards: [], matches: []
+  attr_reader :name, :matches, :bot
+  def initialize name:, cards: [], matches: [], bot: false
     @name = name
     @cards = cards
     @matches = matches
+    @bot = bot
   end
 
   def player_hand
@@ -48,7 +49,7 @@ class Player
   def as_json(options={})
     card_json = player_hand.map(&:as_json)
     matches_json = matches.map { |match| match.map(&:as_json) }
-    {'name' => name, 'cards' => card_json, 'matches' => matches_json}
+    {'bot' => bot, 'name' => name, 'cards' => card_json, 'matches' => matches_json}
   end
 
   def self.from_json(obj)
@@ -60,6 +61,6 @@ class Player
         Card.from_json(c)
       end
     end
-    Player.new(name: obj['name'], cards: cards, matches: matches)
+    Player.new(name: obj['name'], cards: cards, matches: matches, bot: obj['bot'])
   end
 end

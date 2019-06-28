@@ -6,9 +6,9 @@ h1 The Game is over
 -else
   h3 = "#{winners.map(&:name).join(', ')} tied with #{winners.first.points} points"
 -others.each do |player|
-  h3 = "#{player.name} has #{player.points} point(s)"
+  h3 = "#{player.name} had #{player.points} point(s)"
 div.flex-log
   div.end_game_log
     h2.book Game logs
-    - @game.go_fish_game.logs.each do |log|
+    - @game.go_fish_game.logs.reverse.each do |log|
       h4.book = log.to_player_json

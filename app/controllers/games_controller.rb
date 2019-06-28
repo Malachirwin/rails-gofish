@@ -5,13 +5,13 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    # binding.pry
     @user = current_user
     unless @game.users.include?(@user) || @user == nil
       join_game @game
       pusher_client.trigger("app", "another-joined", {message: 'Another player joined'})
     end
     if @game.users.length == @game.player_num && @game.start_at == nil
-      @game.update(start_at: Time.zone.now)
       @game.start
     end
     if @game.go_fish_game != nil && @game.go_fish_game.winners != false && @game.finish_at == nil
@@ -22,6 +22,12 @@ class GamesController < ApplicationController
       format.html
       format.json { render json: {game: @game.go_fish_game.players_json(@user.name)} }
     end
+  end
+
+  def start_game_now
+    @game = Game.find(params[:id])
+    @game.start
+    redirect_to @game
   end
 
   def leave
@@ -51,6 +57,12 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
+  end
+
+  def update_level
+    @game = Game.find(params[:id])
+    @game.change_level
+    pusher_client.trigger("Game#{@game.id}", "game-has-changed", {message: 'Update level'})
   end
 
   def run_round

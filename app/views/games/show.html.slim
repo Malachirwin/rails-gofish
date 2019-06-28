@@ -3,6 +3,8 @@
   h1 = "There are #{@game.users.length} of #{@game.player_num} to start the game"
   - @game.users.each do |user|
     h1 = user.name
+  - if @game.users.first == @user
+    h3 = link_to 'Start Now With Bots', start_game_now_game_path(@game), method: :post, class: 'link'
   h3 = link_to 'leave', leave_game_path(@game), method: :post, class: 'link'
 -elsif @game.in_progress == true
   h1 The Game Has Started

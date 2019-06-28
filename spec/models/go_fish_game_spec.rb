@@ -2,7 +2,7 @@ require 'rails_helper'
 describe 'GoFishGame' do
   before do
     player_names = ['Malachi', 'Jimmy', 'Bob', 'Fred', 'Orange', 'Apple']
-    @game = GoFishGame.new(level: 'easy', player_names: player_names)
+    @game = GoFishGame.new(level: 'easy', player_names: player_names, player_num: player_names.length)
   end
 
   it 'Starts a game with x number of players' do
@@ -133,5 +133,44 @@ describe 'GoFishGame' do
     @game.deck.remove_all_cards_from_deck
     result = @game.run_request(fisher: player1, target: player4, rank: '10')
     expect(@game.player_turn).to eq 3
+  end
+
+  describe "Runs bot turns" do
+    it 'fills the game with bots' do
+      player_names = ['Malachi', 'Jimmy']
+      game = GoFishGame.new(level: 'easy', player_names: player_names, player_num: 4)
+      expect(game.players.length).to eq 4
+    end
+
+    it 'picks something based on the log' do
+      player_names = ['Malachi', 'Jimmy']
+      game = GoFishGame.new(level: 'hard', player_names: player_names, player_num: 4)
+      player1, player2, player3 = game.players
+      game.add_log(Log.new(fisher: player2, target: player3, rank: '10', result: '10 of Spades'))
+      expect(game.pick_player_and_card(player1).include?(player2))
+    end
+
+    it "picks the last thing that wasn't them based on the log" do
+      player_names = ['Malachi', 'Jimmy']
+      game = GoFishGame.new(level: 'hard', player_names: player_names, player_num: 4)
+      player1, player2, player3 = game.players
+      player1.set_hand([Card.new(rank: '10', suit: 'H')])
+      game.add_log(Log.new(fisher: player2, target: player3, rank: '10', result: '10 of Spades'))
+      game.add_log(Log.new(fisher: player1, target: player3, rank: '8', result: '8 of Spades'))
+      expect(game.pick_player_and_card(player1).include?(player2))
+    end
+
+    it "picks the last thing that wasn't them based on the log" do
+      player_names = ['Malachi', 'Jimmy']
+      game = GoFishGame.new(level: 'hard', player_names: player_names, player_num: 4)
+      game.next_turn
+      player1, player2, player3, player4 = game.players
+      player2.set_hand([Card.new(rank: '10', suit: 'H'), Card.new(rank: 'A', suit: 'D')])
+      player4.set_hand([Card.new(rank: '4', suit: 'D'), Card.new(rank: 'K', suit: 'C'), Card.new(rank: '3', suit: 'C')])
+      result = game.run_turn(fisher: player2, target: player4, rank: '10')
+      game.add_log(Log.new(fisher: player2, target: player3, rank: '10', result: '10 of Spades'))
+      game.add_log(Log.new(fisher: player1, target: player3, rank: '8', result: '8 of Spades'))
+      expect(game.logs.length).to be >= 5
+    end
   end
 end

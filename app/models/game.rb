@@ -8,8 +8,9 @@ class Game < ApplicationRecord
 
   def start
     player_names = users.map { |u| u.name }
-    go_fish_game = GoFishGame.new(level: level, player_names: player_names)
-    update(go_fish_game: go_fish_game)
+    go_fish_game = GoFishGame.new(level: level, player_names: player_names, player_num: player_num)
+    update(go_fish_game: go_fish_game, start_at: Time.zone.now)
+
   end
 
   def pending
@@ -22,5 +23,14 @@ class Game < ApplicationRecord
 
   def finished
     start_at != nil && finish_at != nil
+  end
+
+  def change_level
+    if go_fish_game.level == 'hard'
+      go_fish_game.set_level('easy')
+    else
+      go_fish_game.set_level('hard')
+    end
+    update(go_fish_game: go_fish_game)
   end
 end

@@ -1,0 +1,2 @@
+class UserLeaderBoard < ApplicationRecord
+end

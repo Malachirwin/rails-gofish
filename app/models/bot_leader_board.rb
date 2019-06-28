@@ -1,0 +1,2 @@
+class BotLeaderBoard < ApplicationRecord
+end

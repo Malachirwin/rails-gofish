@@ -11,8 +11,7 @@ class SessionsController < ApplicationController
       log_in @user
       redirect_to games_url(@user)
     else
-      flash[:danger] = 'Invalid email/password combination'
-      redirect_to root_url
+      redirect_to root_url, notice: @user.errors
     end
   end
 end

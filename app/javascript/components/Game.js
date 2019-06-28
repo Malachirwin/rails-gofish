@@ -1,6 +1,6 @@
 // import Card from './Card'
 export default class Game {
-  constructor(player, opponents, cardsInDeck, playerTurn, logs, playerNames, level) {
+  constructor(player, opponents, cardsInDeck, playerTurn, logs, playerNames, level, winners) {
     this._player = player
     this._opponents = opponents
     this._cardsInDeck = cardsInDeck
@@ -8,10 +8,15 @@ export default class Game {
     this._playerNames = playerNames
     this._logs = logs
     this._level = level
+    this._winners = winners
   }
 
   logs() {
     return this._logs
+  }
+
+  winners() {
+    return this._winners
   }
 
   level() {

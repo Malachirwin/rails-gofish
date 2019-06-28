@@ -42,8 +42,9 @@ class GamesController < ApplicationController
 
   def index
     if logged_in?
-      @in_progress = Game.in_progress
       @user = current_user
+      @in_progress = Game.in_progress.select {|g| g.users.include?(@user)}
+      @finished = Game.finished.select {|g| g.users.include?(@user)}
       @pending_games = Game.pending
     else
       redirect_to root_url

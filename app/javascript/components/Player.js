@@ -30,4 +30,8 @@ export default class Player {
   isTurn() {
     return this._isTurn
   }
+
+  points() {
+    return this.matches().length
+  }
 }

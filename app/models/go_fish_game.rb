@@ -73,8 +73,17 @@ class GoFishGame
       cards_in_deck: deck.cards_left,
       player_names: player_names,
       logs: logs.map(&:to_player_json),
-      is_turn: is_turn(player)
+      is_turn: is_turn(player),
+      winners: winner_json
     }
+  end
+
+  def winner_json
+    if winners == false
+      false
+    else
+      winners.map(&:as_json)
+    end
   end
 
   def is_turn player

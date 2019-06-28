@@ -7,6 +7,7 @@ import CardView from './CardView'
 import OpponentView from './OpponentView'
 import PropTypes from "prop-types"
 import Pusher from 'pusher-js';
+import EndGame from './EndGame'
 export default class GameView extends React.Component {
   static propTypes = {
     game_id: PropTypes.number.isRequired
@@ -42,11 +43,7 @@ export default class GameView extends React.Component {
     }
     const channel = window.pusher.subscribe(`Game${this.props.game_id}`);
     channel.bind(`game-has-changed`, (data) => {
-      if (data.message === 'Round has been run' || data.message === 'Update level') {
-        this.requestGame()
-      } else {
-        window.location.reload()
-      }
+      this.requestGame()
     });
   }
 
@@ -71,7 +68,13 @@ export default class GameView extends React.Component {
   inflate(data) {
     const player = new Player(data.game.player, data.game.is_turn)
     const opponents = data.game.opponents.map(pl => new Opponent(pl))
-    this.setState({game: new Game(player, opponents, data.game.cards_in_deck, data.game.player_turn, data.game.logs, data.game.player_names, data.game.level)})
+    let winners
+    if (data.game.winners !== false) {
+      winners = data.game.winners.map(pl => new Player(pl))
+    } else {
+      winners = false
+    }
+    this.setState({game: new Game(player, opponents, data.game.cards_in_deck, data.game.player_turn, data.game.logs, data.game.player_names, data.game.level, winners)})
   }
 
   renderOpponents() {
@@ -133,22 +136,28 @@ export default class GameView extends React.Component {
     return <h1>Waiting for {this.state.game.playerNames()[this.state.game.playerTurn()]} to finish a turn</h1>
   }
 
+  renderGame() {
+    return (
+      <div className="center">
+        <h1>The Game is in Progress</h1>
+        <h3>level: {this.state.game.level()}</h3>
+        {this.setLevelButton()}
+        {this.renderWhoIsPlaying()}
+        <div className="flex-wrapper">{this.renderOpponents()}</div>
+        <div className="deck">{this.renderCenterDeck()}</div>
+        <PlayerView targetCard={this.state.targetCard} clicked={this.setTargetCard.bind(this)} player={this.state.game.player()} />
+        {this.button()}
+        <div className="log"><h2 className="book">Game Logs</h2>{this.renderLogs()}</div>
+      </div>)
+  }
+
   render () {
     if(this.state.isLoaded === false) {
       return <div><h1>Loading</h1></div>
+    } else if (this.state.game.winners() === false) {
+      return (this.renderGame())
     } else {
-      return (
-        <div className="center">
-          <h3>level: {this.state.game.level()}</h3>
-          {this.setLevelButton()}
-          {this.renderWhoIsPlaying()}
-          <div className="flex-wrapper">{this.renderOpponents()}</div>
-          <div className="deck">{this.renderCenterDeck()}</div>
-          <PlayerView targetCard={this.state.targetCard} clicked={this.setTargetCard.bind(this)} player={this.state.game.player()} />
-          {this.button()}
-          <div className="log"><h2 className="book">Game Logs</h2>{this.renderLogs()}</div>
-        </div>
-      )
+      return <EndGame game={this.state.game} />
     }
   }
 }

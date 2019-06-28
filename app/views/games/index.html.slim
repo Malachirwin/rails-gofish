@@ -12,7 +12,13 @@ h2 Pending Games
 h2 In Progress
 -if @in_progress.any?
   - @in_progress.each do |game|
-    -if game.users.include?(@user)
-      h3 = link_to "#{game.users.map(&:name).join(', ')}", game, class: 'link'
+    h3 = link_to "#{game.users.map(&:name).join(', ')}", game, class: 'link'
 - else
   h3 No games are in progress yet join or create one
+
+h2 Finished
+-if @finished.any?
+  - @finished.each do |game|
+    h3 = link_to "#{game.users.map(&:name).join(', ')}", game, class: 'link'
+- else
+  h3 No games are finished yet join or create one

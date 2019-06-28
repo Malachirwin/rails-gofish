@@ -59,6 +59,12 @@ class GamesController < ApplicationController
     @game = Game.new
   end
 
+  def update_level
+    @game = Game.find(params[:id])
+    @game.change_level
+    pusher_client.trigger("Game#{@game.id}", "game-has-changed", {message: 'Update level'})
+  end
+
   def run_round
     @game = Game.find(params[:id])
     player = @game.go_fish_game.players_find_by(name: current_user.name)

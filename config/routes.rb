@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       post :leave
       post :run_round
       post :start_game_now
+      post :update_level
     end
   end
   root 'sessions#new'

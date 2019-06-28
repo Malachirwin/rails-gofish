@@ -30,6 +30,10 @@ class GoFishGame
     end
   end
 
+  def set_level(level)
+    @level = level
+  end
+
   def self.load(hash)
     return nil if hash.blank?
     self.from_json(hash)
@@ -64,6 +68,7 @@ class GoFishGame
     {
       player_turn: player_turn,
       player: player.as_json,
+      level: level,
       opponents: opponents(player).map(&:as_opponent_json),
       cards_in_deck: deck.cards_left,
       player_names: player_names,

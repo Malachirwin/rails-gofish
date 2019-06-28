@@ -119,7 +119,6 @@ class GoFishGame
   def pick_target_and_rank
     if level == 'easy'
       random_card_and_player
-      pick_player_and_card(next_player)
     else
       pick_player_and_card(next_player)
     end

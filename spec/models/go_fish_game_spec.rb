@@ -160,7 +160,7 @@ describe 'GoFishGame' do
       expect(game.pick_player_and_card(player1).include?(player2))
     end
 
-    it "picks the last thing that wasn't them based on the log" do
+    it "runs bot turns after human" do
       player_names = ['Malachi', 'Jimmy']
       game = GoFishGame.new(level: 'hard', player_names: player_names, player_num: 4)
       game.next_turn

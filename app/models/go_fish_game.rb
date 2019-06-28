@@ -25,8 +25,9 @@ class GoFishGame
     @players = player_names.map.with_index do |name, index|
       Player.new(name: name, cards: player_hands[index])
     end
+    index = 0
     while @players.length < @player_num
-      @players.push(Player.new(name: "Bot #{@players.length}", cards: player_hands[@players.length], bot: true))
+      @players.push(Player.new(name: "Bot #{index += 1}", cards: player_hands[@players.length], bot: true))
     end
   end
 

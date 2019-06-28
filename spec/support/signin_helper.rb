@@ -31,4 +31,10 @@ module SigninHelper
     session1.driver.refresh
     [session1, session2]
   end
+  
+  def self.game
+    player = Player.new(name: 'Player 1', cards: [Card.new(rank: 'A', suit: 'H'), Card.new(rank: 'A', suit: 'C'), Card.new(rank: 'A', suit: 'S')])
+    player2 = Player.new(name: 'Player 2', cards: [Card.new(rank: 'A', suit: 'D')])
+    GoFishGame.new(player_names: ['Player 1', 'Player 2'], player_num: 2, players: [player, player2], deck: CardDeck.new(cards: []))
+  end
 end

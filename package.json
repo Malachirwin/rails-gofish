@@ -14,6 +14,7 @@
     "ndb": "^1.0.46",
     "node-fetch": "^2.6.0",
     "prop-types": "^15.7.2",
+    "pusher-js": "^5.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react_ujs": "^2.5.0",
@@ -28,7 +29,6 @@
     "babel-preset-es2016": "^6.24.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
-    "pusher-js": "^4.4.0",
     "webpack-dev-server": "^3.7.2"
   },
   "jest": {

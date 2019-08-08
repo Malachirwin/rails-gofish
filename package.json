@@ -2,6 +2,7 @@
   "name": "react-rails-gofish",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.0.0-0",
     "@babel/preset-react": "^7.0.0",
     "@rails/webpacker": "^4.0.7",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
@@ -16,6 +17,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react_ujs": "^2.5.0",
+    "webpack": "^4.0.0",
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {

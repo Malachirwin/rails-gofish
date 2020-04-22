@@ -2,7 +2,7 @@ doctype html
 html
   head
     title
-      | ReactRailsGofish
+      | Go fish 2
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -12,9 +12,11 @@ html
   body data-current_user_id="#{session[:user_id]}"
 
     .header
-      = link_to 'Home', games_url, class: 'tag'
-      '
-      - if @current_user
-        = link_to 'Create Game', new_game_path, class: 'tag'
-    .center
+      .header-container
+        - if @current_user
+          = link_to 'Home', games_url, class: 'tag'
+          '
+          = link_to 'Create Game', new_game_path, class: 'tag'
+    .app
+      = image_tag 'title-background.png'
       = yield

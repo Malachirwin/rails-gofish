@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_06_28_201533) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "game_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "game_id"
@@ -26,7 +29,7 @@ ActiveRecord::Schema.define(version: 2019_06_28_201533) do
     t.datetime "updated_at", null: false
     t.string "level"
     t.integer "player_num"
-    t.json "go_fish_game", default: {}, null: false
+    t.jsonb "go_fish_game", default: {}, null: false
   end
 
   create_table "user_leader_boards", force: :cascade do |t|

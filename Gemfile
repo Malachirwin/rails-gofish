@@ -20,9 +20,10 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'pusher'
+gem 'pg', '0.18.4'
 
 group :development, :test do
-  gem 'sqlite3'
+  # gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
@@ -41,9 +42,9 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 end
-
-group :production do
-  gem 'pg', '0.18.4'
-end
+# 
+# group :production do
+#
+# end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

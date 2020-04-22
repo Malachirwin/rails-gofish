@@ -15,11 +15,11 @@ h2 In Progress
   - @in_progress.each do |game|
     h3 = link_to "#{game.users.map(&:name).join(', ')}", game, class: 'link'
 - else
-  h3 No games are in progress yet join or create one
+  h3 No games are in progress, join or create one
 
 h2 Finished
 -if @finished.any?
   - @finished.each do |game|
     h3 = link_to "#{game.users.map(&:name).join(', ')}", game, class: 'link'
 - else
-  h3 No games are finished yet join or create one
+  h3 You have not finished any games, finish a game to see the log

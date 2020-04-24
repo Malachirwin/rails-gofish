@@ -13,10 +13,40 @@ html
 
     .header
       .header-container
-        - if @current_user
-          = link_to 'Home', games_url, class: 'tag'
-          '
-          = link_to 'Create Game', new_game_path, class: 'tag'
+        .tooltip
+          button.link_tag onclick='setClipboard("#{root_url}", "#{@current_user.name if @current_user}")' onmouseout="outFunc()"
+            span.tooltiptext id="myTooltip" Copy to clipboard
+            | Copy Invatation Url
+        .centered-headers
+          - if @current_user
+            = link_to 'Home', games_url, class: 'tag'
+            '
+            = link_to 'Create Game', new_game_path, class: 'tag'
+            '
+            = link_to "Log out", sessions_destroy_url, method: :delete, class: 'tag'
+
     .app
       = image_tag 'title-background.png'
       = yield
+javascript:
+  function setClipboard(value, name) {
+    var tempInput = document.createElement("input");
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    if(name !== '') {
+      tempInput.value = `Come play Go Fish with ${name}! ${value}`;
+    }else{
+      tempInput.value = `Come play Go Fish! ${value}`;
+
+    }
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    const tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copied Url";
+  }
+
+  function outFunc() {
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copy to clipboard";
+  }

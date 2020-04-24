@@ -12,13 +12,58 @@ body {
 h1, h2, h3, h4, h5 {
   color: $blue;
 }
+.tooltip {
+  position: absolute;
+  display: inline-block;
+  right: 10px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  font-size: 15px;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 80%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
 .app {
   text-align: center;
   border-width: thick;
   border-style: solid;
+  padding-bottom: 1rem;
+  border-color: $blue;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 .header-container {
-  text-align: center;
+  // text-align: center;
+  position: relative;
+  height: 36px;
 }
 .card-in-hand {
   margin-left: -50px;
@@ -127,6 +172,8 @@ h1, h2, h3, h4, h5 {
   }
 }
 .header {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   background-color: $blue;
   padding: 10px;
 }
@@ -145,6 +192,11 @@ label, input {
   border: 3px solid $blue;
   border-radius: 20px;
   text-decoration: none;
+  &:hover {
+    border: 3px solid $blue;
+    color: $blue;
+    background-color: $green;
+  }
 }
 .link {
   font-size: 2rem;
@@ -154,4 +206,19 @@ label, input {
   border: 3px solid $blue;
   border-radius: 20px;
   text-decoration: none;
+  &:hover {
+    border: 3px solid $blue;
+    color: $blue;
+    background-color: $green;
+  }
+}
+.link_tag {
+  background-color: $blue;
+  border: 0px none $blue;
+  color: $green;
+  text-decoration: none;
+  font-size: 30px;
+  &:hover {
+    color: $hover-green;
+  }
 }

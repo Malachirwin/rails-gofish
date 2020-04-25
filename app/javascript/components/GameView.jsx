@@ -136,12 +136,24 @@ export default class GameView extends React.Component {
     return <h1>Waiting for {this.state.game.playerNames()[this.state.game.playerTurn()]} to finish a turn</h1>
   }
 
+  renderLevel() {
+    // checking if there is bots
+    if (this.state.game.opponents().filter((p) => p.name().includes('Bot')).length > 0) {
+      return (
+        <div>
+          <h3>level: {this.state.game.level()}</h3>
+          {this.setLevelButton()}
+        </div>
+      )
+    } else {
+      return ''
+    }
+  }
+
   renderGame() {
     return (
       <div className="center">
-        <h1>The Game is in Progress</h1>
-        <h3>level: {this.state.game.level()}</h3>
-        {this.setLevelButton()}
+        {this.renderLevel()}
         {this.renderWhoIsPlaying()}
         <div className="flex-wrapper">{this.renderOpponents()}</div>
         <div className="deck">{this.renderCenterDeck()}</div>

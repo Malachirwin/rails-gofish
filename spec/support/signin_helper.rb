@@ -24,7 +24,7 @@ module SigninHelper
     SigninHelper.login([session1, session2])
     session1.click_link 'Create Game'
     session1.fill_in :game_player_num, with: 2
-    session1.click_on 'Start Game'
+    session1.click_on 'Create'
     game = Game.find_by(player_num: 2)
     SigninHelper.join([session2], game)
     game.reload

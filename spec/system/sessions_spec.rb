@@ -11,7 +11,9 @@ RSpec.describe "Sessions", type: :system do
     it "visits the root and logs in" do
       fill_in "Name", :with => "Malachi"
       click_button "commit"
-      expect(page).to have_text("Welcome to Go Fish")
+      expect(page).to have_selector('h2', text: 'Pending Games')
+      expect(page).to have_selector('h2', text: 'In Progress')
+      expect(page).to have_selector('h2', text: 'Finished')
     end
   end
 end

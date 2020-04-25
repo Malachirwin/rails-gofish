@@ -9,7 +9,7 @@ RSpec.describe "Games", type: :system do
       SigninHelper.login([session1, session2, session3])
       session1.click_on 'Create Game'
       session1.fill_in :game_player_num, with: 3
-      session1.click_on 'Start Game'
+      session1.click_on 'Create'
       game = Game.find_by(player_num: 3)
       SigninHelper.join([session2, session3], game)
       card = session1.all('.card-in-hand').last

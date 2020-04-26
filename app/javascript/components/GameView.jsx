@@ -102,7 +102,16 @@ export default class GameView extends React.Component {
     return ''
   }
 
+  removeButton() {
+    // const button = document.getElementById("requestButton")
+    // debugger
+    // button.remove()
+    const button = document.getElementById("requestButton")
+    document.getElementById("requestButtonWrapper").removeChild(button)
+  }
+
   requestCard() {
+    this.removeButton()
     fetch(`/games/${this.props.game_id}/run_round`, {
       headers: {
           'Accept': 'application/json',
@@ -119,7 +128,7 @@ export default class GameView extends React.Component {
 
   button() {
     if (this.state.targetCard !== '' && this.state.targetPlayer !== '') {
-      return <button className="button" onClick={this.requestCard.bind(this)}>Request</button>
+      return <div id="requestButtonWrapper"><button className="button" id="requestButton" onClick={this.requestCard.bind(this)}>Request</button></div>
     }
     return ''
   }
@@ -152,7 +161,7 @@ export default class GameView extends React.Component {
 
   renderGame() {
     return (
-      <div className="center">
+      <div className="center" id="gameWrapper">
         {this.renderLevel()}
         {this.renderWhoIsPlaying()}
         <div className="flex-wrapper">{this.renderOpponents()}</div>

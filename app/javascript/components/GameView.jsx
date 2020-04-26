@@ -18,7 +18,8 @@ export default class GameView extends React.Component {
     this.state = {
       isLoaded: false,
       targetCard: '',
-      targetPlayer: ''
+      targetPlayer: '',
+      showLogs: true
     }
   }
 
@@ -102,10 +103,11 @@ export default class GameView extends React.Component {
     return ''
   }
 
+  toggleLogs() {
+    this.setState({showLogs: !this.state.showLogs})
+  }
+
   removeButton() {
-    // const button = document.getElementById("requestButton")
-    // debugger
-    // button.remove()
     const button = document.getElementById("requestButton")
     document.getElementById("requestButtonWrapper").removeChild(button)
   }
@@ -134,8 +136,18 @@ export default class GameView extends React.Component {
   }
 
   renderLogs() {
-    const logs = this.state.game.logs().slice()
-    return logs.reverse().slice(0, 20).map((log, i) => <h4 className="book" key={i}>{log}</h4>)
+    if (this.state.showLogs === true) {
+      const logs = this.state.game.logs().slice()
+      return logs.reverse().slice(0, 20).map((log, i) => <h4 className="book" key={i}>{log}</h4>)
+    }
+    return ''
+  }
+
+  renderLogTitle() {
+    if (this.state.showLogs === true) {
+      return 'Hide Game Logs'
+    }
+    return 'Show Game Logs'
   }
 
   renderWhoIsPlaying() {
@@ -168,7 +180,7 @@ export default class GameView extends React.Component {
         <div className="deck">{this.renderCenterDeck()}</div>
         <PlayerView targetCard={this.state.targetCard} clicked={this.setTargetCard.bind(this)} player={this.state.game.player()} />
         {this.button()}
-        <div className="log"><h2 className="book">Game Logs</h2>{this.renderLogs()}</div>
+        <div onClick={this.toggleLogs.bind(this)} className="log"><h2 className="book">{this.renderLogTitle()}</h2>{this.renderLogs()}</div>
       </div>)
   }
 

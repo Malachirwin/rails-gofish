@@ -3,7 +3,8 @@ Rails.application.routes.draw do
     member do
       post :leave
       post :run_round
-      post :start_game_now
+      post :start_now
+      post :start_with_bots
       post :update_level
     end
   end

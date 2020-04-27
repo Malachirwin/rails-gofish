@@ -31,11 +31,23 @@ class GamesController < ApplicationController
     end
   end
 
-  def start_game_now
+  def start_with_bots
     @game = Game.find(params[:id])
     @game.start
     pusher_client.trigger("app", "game-is-starting", {game_id: @game.id, user_id: "#{current_user.id}"})
     redirect_to @game
+  end
+
+  def start_now
+    @game = Game.find(params[:id])
+    if @game.users.length > 1
+      @game.update player_num: @game.users.length
+      @game.start
+      pusher_client.trigger("app", "game-is-starting", {game_id: @game.id, user_id: "#{current_user.id}"})
+      redirect_to @game
+    else
+      redirect_to @game, notice: ["You can't play gofish by your self"]
+    end
   end
 
   def leave

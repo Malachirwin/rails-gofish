@@ -2,7 +2,7 @@ h1 How many players do you want to play with?
 = form_for @game, url: games_url, method: "post" do |f|
   = f.hidden_field :level, value: 'hard'
   / = f.select :level, ['easy', 'hard']
-  = f.label 'Number of Player: '
+  = f.label 'Number of Player: ', class: 'label'
   = f.number_field :player_num, min: 2 ,max: 8, value: 4
   = f.hidden_field :go_fish_game
   = f.submit class: 'button', value: 'Create'

@@ -8,10 +8,14 @@ class Game < ApplicationRecord
   serialize :go_fish_game, GoFishGame
 
   def start
-    player_names = users.map { |u| u.name }
+    player_names = ordered_users.map { |u| u.name }
     go_fish_game = GoFishGame.new(level: level, player_names: player_names, player_num: player_num)
     update(go_fish_game: go_fish_game, start_at: Time.zone.now)
 
+  end
+
+  def ordered_users
+    users.includes(:game_users).sort_by{|user| user.game_users.detect{|game_user| game_user.game_id == id}.created_at}
   end
 
   def pending

@@ -1,21 +1,21 @@
 h2 Pending Games
 -if @pending_games.any?
   - @pending_games.each do |game|
-    h4 = "Players: #{game.users.map(&:name).join(', ')}"
-    h3 = link_to "Waiting for #{game.player_num - game.users.length} of #{game.player_num} players", game, class: 'link'
+    h4 = "Players: #{game.ordered_users.map(&:name).join(', ')}"
+    h3 = link_to "Waiting for #{game.player_num - game.ordered_users.length} of #{game.player_num} players", game, class: 'link'
 - else
   h3 No games are created yet create one
 
 h2 In Progress
 -if @in_progress.any?
   - @in_progress.each do |game|
-    h3 = link_to "#{game.users.map(&:name).join(', ')}", game, class: 'link'
+    h3 = link_to "#{game.ordered_users.map(&:name).join(', ')}", game, class: 'link'
 - else
   h3 No games are in progress, join or create one
 
 h2 Finished
 -if @finished.any?
   - @finished.each do |game|
-    h3 = link_to "#{game.users.map(&:name).join(', ')}", game, class: 'link'
+    h3 = link_to "#{game.ordered_users.map(&:name).join(', ')}", game, class: 'link'
 - else
   h3 You have not finished any games, finish a game to see the log

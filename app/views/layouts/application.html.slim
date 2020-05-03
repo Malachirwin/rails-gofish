@@ -16,7 +16,7 @@ html
         .tooltip
           button.link_tag onclick='setClipboard("#{root_url}", "#{@current_user.name if @current_user}")' onmouseout="outFunc()"
             span.tooltiptext id="myTooltip" Copy to clipboard
-            | Copy Invatation Url
+            | Copy Invitation Url
         .centered-headers
           - if @current_user
             = link_to 'Home', games_url, class: 'tag'

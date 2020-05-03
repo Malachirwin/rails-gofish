@@ -1,11 +1,12 @@
--if @leader_boards.any?
+-if @results.any?
   h1 Leader Board
-  - @leader_boards.each do |board|
-    h3 = @users.find(board.user_id).name
-    h4 = "Wins: #{board.wins}"
-    h4 = "Ties: #{board.ties}"
-    h4 = "Losses: #{board.losses}"
-    h4 = "Total Matches: #{board.matches}"
-    h4 = "Total Games Played: #{board.games_played}"
+  .flex-wrapper
+    - @results.each do |board|
+      .leader-board
+        -hash = board[board.keys.first]
+        h3 = board.keys.first
+        h4 = "Wins: #{hash[:wins]}"
+        h4 = "Ties: #{hash[:ties]}"
+        h4 = "Losses: #{hash[:losses]}"
 -else
   h1 No Leader Boards

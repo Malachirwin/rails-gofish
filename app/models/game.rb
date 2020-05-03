@@ -39,24 +39,22 @@ class Game < ApplicationRecord
     update(go_fish_game: go_fish_game)
   end
 
-  def update_leader_boards
-    go_fish_game.winners.map.with_index do |player, index|
+  def result leader_board: {wins: 0, ties: 0, losses: 0}
+    result = go_fish_game.winners.map.with_index do |player, index|
       user = User.find_by(name: player.name)
-      if index == 0 && user
-        leader = UserLeaderBoard.find_or_initialize_by(user_id: user.id)
-        if go_fish_game.winners[1].points == player.points
-          leader.update(ties: (leader.ties + 1), games_played: (leader.games_played + 1), matches: (leader.matches + player.points))
+      if user
+        if index == 0 && go_fish_game.winners[1].points != player.points
+          leader_board[:wins] += 1
+        elsif go_fish_game.winners[0].points == player.points
+          leader_board[:ties] += 1
         else
-          leader.update(wins: (leader.wins + 1), games_played: (leader.games_played + 1), matches: (leader.matches + player.points))
+          leader_board[:losses] += 1
         end
-      elsif user
-        leader = UserLeaderBoard.find_or_initialize_by(user_id: user.id)
-        if go_fish_game.winners[0].points == player.points
-          leader.update(ties: (leader.ties + 1), games_played: (leader.games_played + 1), matches: (leader.matches + player.points))
-        else
-          leader.update(losses: (leader.losses + 1), games_played: (leader.games_played + 1), matches: (leader.matches + player.points))
-        end
+        leader_board
+      else
+        ''
       end
-    end
+    end.flatten
+    result.select{|r| r != ''}
   end
 end

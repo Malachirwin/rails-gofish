@@ -4,13 +4,20 @@ class GamesController < ApplicationController
   before_action :logged_in?
 
   def leader_boards
-    @leader_boards = UserLeaderBoard.order(wins: :desc)
+    @game_users = GameUser.all
     @users = User.all
+    @results = @users.map do |user|
+      leader_board = {wins: 0, ties: 0, losses: 0}
+      games = Game.finished.select {|g| g.users.include?(user)}
+      games.map do |game|
+        game.result(leader_board: leader_board)
+      end
+      {"#{user.name}" => leader_board}
+    end
   end
 
   def show
     @game = Game.find(params[:id])
-    # binding.pry
     @user = current_user
     unless @game.users.include?(@user) || @user == nil
       join_game @game
@@ -23,7 +30,6 @@ class GamesController < ApplicationController
     if @game.go_fish_game != nil && @game.go_fish_game.winners != false && @game.finish_at == nil
       @game.update(finish_at: Time.zone.now)
       pusher_client.trigger("Game#{@game.id}", "game-has-changed", {message: 'The game is ended'})
-      @game.update_leader_boards
     end
     respond_to do |format|
       format.html

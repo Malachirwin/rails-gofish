@@ -1,12 +1,13 @@
 -if @results.any?
   h1 Leader Board
   .flex-wrapper
-    - @results.each do |board|
+    - @results.each do |result|
       .leader-board
-        -hash = board[board.keys.first]
-        h3 = board.keys.first
+        -hash = result[:leader_board]
+        h3 = result[:name]
         h4 = "Wins: #{hash[:wins]}"
         h4 = "Ties: #{hash[:ties]}"
         h4 = "Losses: #{hash[:losses]}"
+        h4 = "Games Played: #{hash[:games_played]}"
 -else
   h1 No Leader Boards

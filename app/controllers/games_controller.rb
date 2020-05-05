@@ -10,9 +10,10 @@ class GamesController < ApplicationController
       leader_board = {wins: 0, ties: 0, losses: 0}
       games = Game.finished.select {|g| g.users.include?(user)}
       games.map do |game|
-        game.result(leader_board: leader_board)
+        game.result(leader_board: leader_board, name: user.name)
       end
-      {"#{user.name}" => leader_board}
+      leader_board[:games_played] = games.count
+      {name: user.name, leader_board: leader_board}
     end
   end
 

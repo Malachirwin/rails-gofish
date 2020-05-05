@@ -39,10 +39,10 @@ class Game < ApplicationRecord
     update(go_fish_game: go_fish_game)
   end
 
-  def result leader_board: {wins: 0, ties: 0, losses: 0}
+  def result leader_board: {wins: 0, ties: 0, losses: 0}, name:
     result = go_fish_game.winners.map.with_index do |player, index|
       user = User.find_by(name: player.name)
-      if user
+      if user && user.name == name
         if index == 0 && go_fish_game.winners[1].points != player.points
           leader_board[:wins] += 1
         elsif go_fish_game.winners[0].points == player.points

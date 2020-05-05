@@ -56,4 +56,14 @@ describe Player do
     expect(player.class).to eq Player
     expect(player.player_hand).to_not eq []
   end
+
+  it 'sorts cards' do
+    cards = [Card.new(rank: "K", suit: "S"), Card.new(rank: "J", suit: "H"), Card.new(rank: "4", suit: "D"), Card.new(rank: "6", suit: "C")]
+    king_of_spades, jack_of_hearts, four_of_diamonds, six_of_clubs = cards
+    player = Player.new(name: 'Malachi', cards: cards)
+    expect(player.player_hand).to eq cards
+    player.sort_hand
+    expect(player.player_hand).to eq [four_of_diamonds, six_of_clubs, jack_of_hearts, king_of_spades]
+    expect(player.player_hand).to_not eq cards
+  end
 end

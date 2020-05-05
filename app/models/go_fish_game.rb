@@ -29,6 +29,7 @@ class GoFishGame
     while @players.length < @player_num
       @players.push(Player.new(name: "Bot #{index += 1}", cards: player_hands[@players.length], bot: true))
     end
+    sort_cards
   end
 
   def set_level(level)
@@ -112,6 +113,10 @@ class GoFishGame
     end
   end
 
+  def sort_cards
+    players.each {|pl| pl.sort_hand}
+  end
+
   def next_player
     players[player_turn]
   end
@@ -121,6 +126,7 @@ class GoFishGame
     @logs.push(Log.new(fisher: fisher, target: target, rank: rank, result: result))
     fisher.pair_cards
     refill_cards
+    sort_cards
     next_turn if fisher.cards_left == 0
     run_bots_turns
     result

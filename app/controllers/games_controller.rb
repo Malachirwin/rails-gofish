@@ -5,14 +5,12 @@ class GamesController < ApplicationController
 
   def leader_boards
     @game_users = GameUser.all
-    @users = User.all
-    @results = @users.map do |user|
-      leader_board = {wins: 0, ties: 0, losses: 0}
+    @results = User.all.map do |user|
       games = Game.finished.select {|g| g.users.include?(user)}
+      leader_board = {wins: 0, ties: 0, losses: 0, games_played: games.count}
       games.map do |game|
         game.result(leader_board: leader_board, name: user.name)
       end
-      leader_board[:games_played] = games.count
       {name: user.name, leader_board: leader_board}
     end
   end
@@ -100,8 +98,6 @@ class GamesController < ApplicationController
   end
 
   private
-
-
 
   def join_game game
     @game_user = GameUser.create(game_id: game.id, user_id: @user.id)

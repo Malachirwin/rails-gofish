@@ -15,10 +15,6 @@ class ApplicationController < ActionController::Base
     !current_user.nil?
   end
 
-  def admin?
-    current_user.name == "Malachi" && current_user.id == 1
-  end
-
   def log_out
     session.delete(:user_id)
     @current_user = nil

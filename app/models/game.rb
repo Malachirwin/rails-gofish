@@ -11,7 +11,6 @@ class Game < ApplicationRecord
     player_names = ordered_users.map { |u| u.name }
     go_fish_game = GoFishGame.new(level: level, player_names: player_names, player_num: player_num)
     update(go_fish_game: go_fish_game, start_at: Time.zone.now)
-
   end
 
   def ordered_users

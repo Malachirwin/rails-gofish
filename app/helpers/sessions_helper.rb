@@ -10,7 +10,6 @@ module SessionsHelper
     end
 
     def logged_in?
-      return redirect_to root_url if current_user.nil?
       !current_user.nil?
     end
 

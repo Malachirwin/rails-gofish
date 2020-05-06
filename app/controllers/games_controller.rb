@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   include SessionsHelper
   skip_before_action :verify_authenticity_token
-  before_action :logged_in?
+  before_action :redirect_home?
 
   def leader_boards
     @game_users = GameUser.all
@@ -66,14 +66,10 @@ class GamesController < ApplicationController
   end
 
   def index
-    if logged_in?
-      @user = current_user
-      @in_progress = Game.in_progress.select {|g| g.users.include?(@user)}
-      @finished = Game.finished.select {|g| g.users.include?(@user)}
-      @pending_games = Game.pending
-    else
-      redirect_to root_url
-    end
+    @user = current_user
+    @in_progress = Game.in_progress.select {|g| g.users.include?(@user)}
+    @finished = Game.finished.select {|g| g.users.include?(@user)}
+    @pending_games = Game.pending
   end
 
   def create
@@ -114,5 +110,4 @@ class GamesController < ApplicationController
   def create_game_params
     params.require(:game).permit([:level, :player_num])
   end
-
 end

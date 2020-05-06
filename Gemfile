@@ -40,9 +40,9 @@ group :test do
   gem 'rspec-json_expectations'
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
 end
-# 
+#
 # group :production do
 #
 # end

@@ -33,4 +33,8 @@ class ApplicationController < ActionController::Base
       encrypted: true
     )
   end
+
+  def redirect_home?
+    return redirect_to root_url if current_user.nil?
+  end
 end

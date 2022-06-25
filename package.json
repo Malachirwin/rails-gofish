@@ -12,7 +12,7 @@
     "jest-enzyme": "^7.0.2",
     "jest-fetch-mock": "^2.1.2",
     "ndb": "^1.0.46",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "prop-types": "^15.7.2",
     "pusher-js": "^5.0.0",
     "react": "^16.8.6",
